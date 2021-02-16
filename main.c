@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/16 10:54:19 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:35:33 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_cmd(char ***cmds)
 		j = 0;
 		while (cmds[i][++j])
 			printf("> %s\n", cmds[i][j]);
-		printf("\n>\n");
+		write(2, "\n>\n", 3);
 	}
 }
 
@@ -37,7 +37,6 @@ void	minishell_loop(void)
 	write(2, "> ", 2);
 	while (get_next_line(0, &line))
 		;
-	printf("\n> ");
 	cmds = ft_split_cmd(line, "|;");
 	print_cmd(cmds);
 }
