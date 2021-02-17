@@ -3,11 +3,12 @@ NAME = minishell
 CC = clang
 CFLAGS = -Wall -Wextra
 
-SRC = main.c \
-	  ft_split_args.c \
-	  ft_split_cmd.c \
-	  get_next_line.c \
-		utils.c
+SRC =	main.c \
+		ft_split_args.c \
+		ft_split_cmd.c \
+		get_next_line.c \
+		utils.c \
+		ft_lstnew_env.c
 OBJ = $(SRC:.c=.o)
 
 RM = rm -f

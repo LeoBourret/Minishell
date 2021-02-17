@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 14:23:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/17 13:36:50 by lebourre         ###   ########.fr       */
+/*   Created: 2021/02/17 17:05:10 by lebourre          #+#    #+#             */
+/*   Updated: 2021/02/17 17:05:30 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_env_lst		*ft_lstnew_env(char *v_name, char *v_content)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	t_env_lst *new;
+	size_t i;
 
-	if (!(new = malloc(sizeof(t_env_lst))))
-		return (NULL);
-	new->name = ft_strdup(v_name);
-	new->content = ft_strdup(v_content);
-	new->next = NULL;
-	return (new);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

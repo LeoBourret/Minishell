@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:04:01 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/03 10:45:51 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:14:36 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strnstr(char const *s1, char const *s2, size_t len);
+int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(char const *s1, char const *s2, size_t n);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
+char			*ft_s_tolower(char *s);
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstlast(t_list *lst);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));

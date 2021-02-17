@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
+/*   ft_s_tolower.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 14:23:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/17 13:36:50 by lebourre         ###   ########.fr       */
+/*   Created: 2021/02/17 17:11:20 by lebourre          #+#    #+#             */
+/*   Updated: 2021/02/17 17:13:41 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_env_lst		*ft_lstnew_env(char *v_name, char *v_content)
+char	*ft_s_tolower(char *s)
 {
-	t_env_lst *new;
+	size_t i;
 
-	if (!(new = malloc(sizeof(t_env_lst))))
-		return (NULL);
-	new->name = ft_strdup(v_name);
-	new->content = ft_strdup(v_content);
-	new->next = NULL;
-	return (new);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] >= 'A' && s[i] <= 'Z')
+			s[i] = ft_tolower(s[i]);
+		i++;
+	}
+	return (s);
 }

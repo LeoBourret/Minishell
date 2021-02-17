@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:10:52 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/04 14:34:36 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:01:17 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,41 @@ int		pass_cmd_name(char *s, int i)
 		i++;
 	return (i);
 }
-/*
-void	get_env(t_env_lst *env_list, char **envp)
+
+t_env_lst	*get_env(t_env_lst *list, char **envp)
 {
 	int		i;
 	int		j;
-	int		tmp;
 	char	*name;
 	char	*content;
+	t_env_lst *begin;
 
-	i = -1;
+	j = -1;
+	while (envp[0][++j] != '=')
+		;
+	name = ft_substr(envp[0], 0, j - 1);
+	while (envp[0][++j])
+		;
+	content = ft_substr(ft_strchr(envp[0], '=') + 1, 0, j);
+	list = ft_lstnew_env(name, content);
+	free(name);
+	free(content);
+	begin = list;
+	printf("%p\n%p\n\n", begin, list);
+	i = 0;
 	while (envp[++i])
 	{
 		j = -1;
 		while (envp[i][++j] != '=')
 			;
 		name = ft_substr(envp[i], 0, j - 1);
-		tmp = j + 1;
 		while (envp[i][++j])
 			;
-		content = ft_substr(envp[i], tmp, j);
-		env_list = ft_lstnew_env(name, content);
+		content = ft_substr(ft_strchr(envp[i], '=') + 1, 0, j);
+		list->next = ft_lstnew_env(name, content);
 		free(name);
 		free(content);
-		env_list = env_list->next;
+		list = list->next;
 	}
-}*/
+	return (begin);
+}
