@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:37:54 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/17 17:15:36 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:31:27 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int		minishell_launch(char **av, char **envp)
 	else
 		while (!WIFEXITED(status) && !WIFSIGNALED(status));
 			wpid = waitpid(pid, &status, WUNTRACED);
+	return (1);
+}
+
+int		minishell_cd(t_fct_params *params)
+{
 	return (1);
 }
 

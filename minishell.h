@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/17 17:12:36 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:43:59 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <termios.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft.h"
@@ -23,6 +24,7 @@ typedef struct	s_env_lst
 {
 	char	*name;
 	char	*content;
+	int		len;
 	struct	s_env_lst *next;
 }				t_env_lst;
 
@@ -43,5 +45,5 @@ int				minishell_launch(char **av, char **envp);
 int				minishell_cd(t_fct_params *params);
 int				minishell_echo(t_fct_params *params);
 int				minishell_pwd(t_fct_params *params);
-
+int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 #endif

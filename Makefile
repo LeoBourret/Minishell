@@ -8,7 +8,9 @@ SRC =	main.c \
 		ft_split_cmd.c \
 		get_next_line.c \
 		utils.c \
-		ft_lstnew_env.c
+		ft_lstnew_env.c \
+		built_minishell.c
+
 OBJ = $(SRC:.c=.o)
 
 RM = rm -f

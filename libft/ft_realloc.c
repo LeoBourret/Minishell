@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:42:24 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/03 10:45:56 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:58:37 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*ft_realloc(char *str, int buffer_size)
 	i = -1;
 	while (str[++i])
 		new[i] = str[i];
-	new[i + 1] = '\0';
+	while (i <= (int)ft_strlen(str) + buffer_size + 1)
+		new[i++] = '\0';
 	free(str);
 	return (new);
 }

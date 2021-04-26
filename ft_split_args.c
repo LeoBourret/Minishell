@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/16 16:23:13 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:23:05 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*ft_strdup_space_sep(char *str)
 				i++;
 			break ;
 		}
-		if (!(str[lenght] == '\'' || str[lenght] == '"'))
+		if ((str[lenght + 1] == '\'' || str[lenght + 1] == '"')
+		&& str[lenght] == '\\')
 			i++;
 	}
 	if (!(copy = malloc(sizeof(char) * i + 1)))
@@ -63,6 +64,10 @@ char	*ft_strdup_space_sep(char *str)
 	j = 0;
 	while (++i < lenght)
 	{
+		if (str[i] == '\\' && str[i - 1] != '\\')
+		{
+			copy[j++] = str[i++ + 1];
+		}
 		if (!(str[i] == '\'' || str[i] == '"'))
 			copy[j++] = str[i];
 	}
