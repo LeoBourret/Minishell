@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/27 16:31:22 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:55:33 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void print_cmd(char ***cmds)
 	i = -1;
 	while (cmds[++i])
 	{
-		printf("> coucou je suis minishell:\n> %s\n>\n", cmds[i][0]);
+		printf("> commande avec ses args respectif:\n> %s\n>\n", cmds[i][0]);
 		j = 0;
 		while (cmds[i][++j])
 			printf("> %s\n", cmds[i][j]);
@@ -75,17 +75,21 @@ char *get_line()
 	char	*line;
 	struct	termios term;
 	char	buf;
-	int		x;
+	int		len;
 
 	tcgetattr(0, &term);
 	line = ft_strdup("");
 	set_term_ncan();
-	x = 0;
+	len = 0;
+	write(1, "> ", 2);
 	while (1)
 	{
 		read(STDIN_FILENO, &buf, 1);
 		if (buf == 10) // return
+		{
+			write(1, "\n", 1);
 			break ;
+		}
 		else if (buf == 27) // esc
 		{
 			read(STDIN_FILENO, &buf, 1);
@@ -94,6 +98,13 @@ char *get_line()
 				read(STDIN_FILENO, &buf, 1);
 			}
 		}
+		else if (buf == 127)
+		{
+			if (len > 0)
+				ft_putstr_fd("\b \b", 1);
+			len--;
+			line[len] = '\0';
+		}
 		else if (buf == 3) // ctrl + c
 		{
 			set_term_can(term);
@@ -101,12 +112,13 @@ char *get_line()
 		}
 		else
 		{
-			line = ft_realloc(line, x + 1);
-			line[x] = buf;
-			x++;
+			write(1, &buf, 1);
+			line = ft_realloc(line, len + 1);
+			line[len] = buf;
+			len++;
 		}
-		printf("buf = %c\n", buf);
-		printf("line = %s len = %lu\n", line, ft_strlen(line));
+//		printf("buf = %c\n", buf);
+//		printf("line = %s len = %lu\n", line, ft_strlen(line));
 	}
 	set_term_can(term);
 	return (line);

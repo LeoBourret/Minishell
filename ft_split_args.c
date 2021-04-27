@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/27 16:23:14 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:21:54 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,17 @@ char	*ft_strdup_space_sep(char *str)
 		}
 		if ((str[lenght + 1] == '\'' || str[lenght + 1] == '"')
 		&& str[lenght] == '\\')
-			i++;
+			lenght += 2;
 	}
-	if (!(copy = malloc(sizeof(char) * i + 1)))
+//	printf("size of copy arg = %d\n", lenght);
+	if (!(copy = malloc(sizeof(char) * lenght + 1)))
 		return (NULL);
 	i = -1;
 	j = 0;
 	while (++i < lenght)
 	{
 		if (str[i] == '\\' && str[i - 1] != '\\')
-		{
 			copy[j++] = str[i++ + 1];
-		}
 		if (!(str[i] == '\'' || str[i] == '"'))
 			copy[j++] = str[i];
 	}
@@ -87,7 +86,7 @@ int		args_counter(char *str)
 	{
 		if (str[i - 1] == ' ' && (str[i] == '\'' || str[i] == '"'))
 		{
-			printf("ft_split args ui\n");
+//			printf("ft_split args ui\n");
 			i = get_to_next_quote(str, i);
 			count++;
 		}
@@ -96,7 +95,7 @@ int		args_counter(char *str)
 			count++;
 		i++;
 	}
-	printf("args nb = %d\n", count);
+//	printf("args nb = %d\n", count);
 	return (count);
 }
 
