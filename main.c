@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/27 17:55:33 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 18:04:43 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char *get_line()
 	line = ft_strdup("");
 	set_term_ncan();
 	len = 0;
-	write(1, "> ", 2);
+	ft_putstr_fd("Brain Diff shell > ", 1);
 	while (1)
 	{
 		read(STDIN_FILENO, &buf, 1);
