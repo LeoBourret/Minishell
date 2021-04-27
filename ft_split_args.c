@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/18 17:23:05 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 16:23:14 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		args_counter(char *str)
 	{
 		if (str[i - 1] == ' ' && (str[i] == '\'' || str[i] == '"'))
 		{
-			printf("ui\n");
+			printf("ft_split args ui\n");
 			i = get_to_next_quote(str, i);
 			count++;
 		}
@@ -96,7 +96,7 @@ int		args_counter(char *str)
 			count++;
 		i++;
 	}
-	printf("%d\n", count);
+	printf("args nb = %d\n", count);
 	return (count);
 }
 

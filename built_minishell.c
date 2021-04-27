@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 15:37:54 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/20 14:31:27 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 14:41:28 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		minishell_launch(char **av, char **envp)
 
 int		minishell_cd(t_fct_params *params)
 {
+	(void)params; // avoid warning
 	return (1);
 }
 
@@ -83,6 +84,7 @@ int minishell_execute(char **args, char **envp, t_env_lst *env_list)
 	int i;
 	t_fct_params *params;
 
+	params = malloc(sizeof(t_fct_params));
 	params->av = args;
 	params->env_list = env_list;
 	if (args[0] == NULL)
@@ -91,5 +93,6 @@ int minishell_execute(char **args, char **envp, t_env_lst *env_list)
 	while (++i < (int)minishell_num_builtins)
 		if (strcmp(args[0], builtin_str[i]) == 0)
 			return (*builtin_func[i])(params);
+	free(params);
 	return minishell_launch(args, envp);
 }
