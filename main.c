@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/26 17:52:28 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/27 11:46:33 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    set_term_ncan(void)
+void set_term_ncan(void)
 {
 	struct termios new;
 	tcgetattr(STDIN_FILENO, &new);
@@ -20,15 +20,15 @@ void    set_term_ncan(void)
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &new);
 }
 
-void    set_term_can(struct termios term)
+void set_term_can(struct termios term)
 {
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
 }
 
-void	free_cmds(char ***cmds)
+void free_cmds(char ***cmds)
 {
-	int		i;
-	int		j;
+	int i;
+	int j;
 
 	if (cmds)
 	{
@@ -43,7 +43,7 @@ void	free_cmds(char ***cmds)
 	}
 }
 
-void	print_cmd(char ***cmds)
+void print_cmd(char ***cmds)
 {
 	int i;
 	int j;
@@ -59,7 +59,7 @@ void	print_cmd(char ***cmds)
 	}
 }
 
-char	***get_cmd(char *line)
+char ***get_cmd(char *line)
 {
 	char ***cmds;
 
@@ -68,33 +68,42 @@ char	***get_cmd(char *line)
 	return (cmds);
 }
 
-char	*get_line()
+char *get_line()
 {
-	char	*line;
+	char *line;
 	struct termios *term;
 	char buf;
+	char *tmp;
 	int x;
 
 	term = (struct termios *)malloc(sizeof(struct termios));
 	tcgetattr(0, term);
 	line = ft_strdup("");
+	tmp = line;
 	set_term_ncan();
+	x = 0;
 	while (1)
 	{
-		x = read(STDIN_FILENO, &buf, 1);
-		printf("buf[0] = %d\n", buf);
-		if (buf == 10 || buf == 'o')
+		read(STDIN_FILENO, &buf, 1);
+		if (buf == 10) // enter
 		{
-			break ;
+			break;
 		}
-		else if (buf == 3)
+		else if (buf == 3) // ctrl + c
 		{
 			set_term_can(*term);
 			exit(0);
 		}
+		printf("line = %s len = %d\n", line,  strlen(line));
 		line = ft_realloc(line, 1);
-		line[ft_strlen(line)] = buf;
-		buf = 0;
+		line[x] = buf;
+		printf("line = %s len = %d\n", line, strlen(line));
+		// tmp = ft_realloc(tmp, 1);
+		// tmp = line;
+		// tmp = malloc(1);
+		// line[ft_strlen(line)] = buf;
+		// tmp[ft_strlen(tmp)] = buf;
+		x++;
 		// status = minishell_execute(cmds[0], envp, env_list);
 		// print_cmd(cmds);
 	}
@@ -102,18 +111,19 @@ char	*get_line()
 	return (line);
 }
 
-int		main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **envp)
 {
 	t_env_lst *env_list;
 	(void)ac;
 	(void)av;
 	char ***cmds;
 
-//	env_list = NULL;
-//	env_list = get_env(env_list, envp);
+	//	env_list = NULL;
+	//	env_list = get_env(env_list, envp);
 	while (1)
 	{
 		cmds = get_cmd(get_line());
+		// print_cmd(cmds);
 	}
 	return (0);
 }
