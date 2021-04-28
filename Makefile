@@ -9,7 +9,10 @@ SRC =	main.c \
 		get_next_line.c \
 		utils.c \
 		ft_lstnew_env.c \
-		built_minishell.c
+		built_minishell.c \
+		built_cd.c \
+		built_echo.c \
+		set_canonic.c \
 
 OBJ = $(SRC:.c=.o)
 

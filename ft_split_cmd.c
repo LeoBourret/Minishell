@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/04 14:19:20 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/28 16:12:08 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	***ft_split_cmd(char *str, char *separator)
 	int		i;
 	int		j;
 
-	if (!str)
+	if (!str || !*str)
 		return (NULL);
 	cmd_count = cmd_counter(str, separator);
 	if (!(cmds = malloc(sizeof(char **) * (cmd_count + 1))))

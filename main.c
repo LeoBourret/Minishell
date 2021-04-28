@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/28 16:18:07 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/04/28 17:31:19 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void print_cmd(char ***cmds)
 	int i;
 	int j;
 
+	if (!cmds)
+		return ;
 	i = -1;
 	while (cmds[++i])
 	{
@@ -82,6 +84,8 @@ char *get_line()
 			if (buf == '[')
 			{
 				read(STDIN_FILENO, &buf, 1);
+				if (buf == 'D' && len > 0)
+					ft_putstr_fd("\b", 1);
 			}
 		}
 		else if (buf == 127)
@@ -119,13 +123,13 @@ int main(int ac, char **av, char **envp)
 	char ***cmds;
 
 	env_list = NULL;
-//	env_list = get_env(env_list, envp);
+	env_list = get_env(env_list, envp);
 	while (1)
 	{
 		printf("Hello\n");
 		cmds = get_cmd(get_line());
 		print_cmd(cmds);			
-		get_built_in(cmds, envp);
+		get_built_in(cmds, env_list);
 		free_cmds(cmds);
 	}
 	return (0);

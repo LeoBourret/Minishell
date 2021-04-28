@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/28 16:19:54 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/04/28 17:44:55 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int				minishell_pwd(t_fct_params *params);
 void set_term_ncan(void);
 void set_term_can(struct termios term);
 int builtin_echo(char ***cmds);
-int exec_built_in (char ***cmds, char **env);
-void get_built_in (char ***cmds, char **env);
+int exec_built_in (char ***cmds, t_env_lst *envlst);
+void get_built_in (char ***cmds, t_env_lst *envlst);
 int builtin_exit(char ***cmds);
 int builtin_cd(char ***cmds);
 int builtin_pwd(char ***cmds);
 int builtin_unset(char ***cmds);
 int builtin_export(char ***cmds);
-int builtin_env(char ***cmds);
+int builtin_env(char ***cmds, t_env_lst *envlst);
 int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 #endif

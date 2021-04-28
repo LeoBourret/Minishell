@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:10:52 by lebourre          #+#    #+#             */
-/*   Updated: 2021/02/17 14:01:17 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/28 18:17:25 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_env_lst	*get_env(t_env_lst *list, char **envp)
 	j = -1;
 	while (envp[0][++j] != '=')
 		;
-	name = ft_substr(envp[0], 0, j - 1);
+	name = ft_substr(envp[0], 0, j);
 	while (envp[0][++j])
 		;
 	content = ft_substr(ft_strchr(envp[0], '=') + 1, 0, j);
@@ -77,7 +77,7 @@ t_env_lst	*get_env(t_env_lst *list, char **envp)
 		j = -1;
 		while (envp[i][++j] != '=')
 			;
-		name = ft_substr(envp[i], 0, j - 1);
+		name = ft_substr(envp[i], 0, j);
 		while (envp[i][++j])
 			;
 		content = ft_substr(ft_strchr(envp[i], '=') + 1, 0, j);
