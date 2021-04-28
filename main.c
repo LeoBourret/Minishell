@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/27 18:04:43 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:52:37 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,91 @@ void set_term_ncan(void)
 void set_term_can(struct termios term)
 {
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &term);
+}
+
+char	*builtin_list[] = {
+	"cd",
+	"echo",
+	"pwd",
+	"exit",
+	"export",
+	"env",
+	"unset"
+};
+
+int exec_built_in (char ***cmds, char **env)
+{
+	if (ft_strcmp(cmds[0][0],"echo") == 0)
+		return builtin_echo(cmds);
+	else if (ft_strcmp(cmds[0][0],"cd") == 0)
+		return builtin_cd(cmds);
+	else if (ft_strcmp(cmds[0][0],"exit") == 0)
+		return builtin_exit(cmds);	
+	else if (ft_strcmp(cmds[0][0],"pwd") == 0)
+		return builtin_pwd(cmds);
+	else if (ft_strcmp(cmds[0][0],"env") == 0)
+		return builtin_env(cmds);
+	else if (ft_strcmp(cmds[0][0],"unset") == 0)
+		return builtin_unset(cmds);
+	else if (ft_strcmp(cmds[0][0],"export") == 0)
+		return builtin_export(cmds);
+	return 0;
+}
+
+void get_built_in (char ***cmds, char **env)
+{
+	int i;
+
+	i = -1;
+	while (builtin_list[++i])
+	{
+		if (ft_strcmp(builtin_list[i], cmds[0][0]) == 0)
+			exec_built_in(cmds, env);
+		// else
+		// 	exec_ve(cmds[0], cmds, **env);
+	}
+}
+
+int builtin_echo(char ***cmds)
+{
+	int i;
+
+	i = 0;
+	while (cmds[0][++i])
+		printf("%s ",cmds[0][i]);
+	printf("\n");
+	return 0;
+}
+
+int builtin_exit(char ***cmds)
+{
+	exit(0);
+	return 0;
+}
+
+int builtin_cd(char ***cmds)
+{
+	return 0;
+}
+
+int builtin_pwd(char ***cmds)
+{
+	return 0;
+}
+
+int builtin_unset(char ***cmds)
+{
+	return 0;
+}
+
+int builtin_export(char ***cmds)
+{
+	return 0;
+}
+
+int builtin_env(char ***cmds)
+{
+	return 0;
 }
 
 void free_cmds(char ***cmds)
@@ -137,7 +222,8 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		cmds = get_cmd(get_line());
-		print_cmd(cmds);
+		print_cmd(cmds);			
+		get_built_in(cmds, envp);
 		free_cmds(cmds);
 	}
 	return (0);
