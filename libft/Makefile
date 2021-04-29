@@ -26,13 +26,13 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ) 
-		ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 clean:
-		$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean: clean
-		$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

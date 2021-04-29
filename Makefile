@@ -1,8 +1,8 @@
 NAME = minishell
 
-RED="\033[0;31m"
+RED="\033[1;31m"
 GRN="\033[1;32m"
-YLW="\033[0;33m"
+YLW="\033[1;33m"
 END="\033[0m"
 
 DIR_BUILTIN = builtin/
@@ -37,25 +37,32 @@ RM = rm -f
 
 all: $(NAME)
 
-libft: 
-	@echo $(YLW) "[Libft compilation...]"
-	@make -C libft/
-	@echo $(GRN)"[Libft done !]"
 
-$(NAME):	libft $(OBJ) 
+$(NAME): $(OBJ) 
 	@echo $(YLW)"[Minishell compilation...]"
 	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
 	@echo $(GRN)"[Minishell ready !]"
+	@echo $(END)
+
+lib: 
+	@echo $(YLW)"[Libft compilation...]"
+	@make -C libft/
+	@echo $(GRN)"[Libft done !]"
+	@echo $(END)
 
 clean:
-	@echo $(RED)"[Libft remove...]"
-	@make fclean -C libft
-	@$(RM) libft.a
-	@$(RM) libft.h
 	@echo $(RED)"[Minishell remove...]"
+	@echo $(END)
 	@$(RM) $(OBJ)
 
 fclean: clean
 	@$(RM) $(NAME)
 
+cleanlib:
+	@echo $(RED)"[Libft remove...]"
+	@echo $(END)
+	@make fclean -C libft
+
 re: fclean all
+
+.SILENT:
