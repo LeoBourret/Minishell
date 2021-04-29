@@ -23,27 +23,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-RED          := $(shell tput -Txterm setaf 1)
-GREEN        := $(shell tput -Txterm setaf 2)
-YELLOW       := $(shell tput -Txterm setaf 3)
-LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
-PURPLE       := $(shell tput -Txterm setaf 5)
-BLUE         := $(shell tput -Txterm setaf 6)
-WHITE        := $(shell tput -Txterm setaf 7)
-RESET        := $(shell tput -Txterm sgr0)
-
 all: $(NAME)
 
 $(NAME): $(OBJ) 
-		@echo ""
-		@echo "$(BLUE)	[	generating libft.a	]$(RESET)"
-		@echo ""
 		ar rcs $(NAME) $(OBJ)
 
 clean:
-		@echo ""
-		@echo "$(PURPLE)	[	cleaning	]$(RESET)"
-		@echo ""
 		$(RM) $(OBJ)
 
 fclean: clean

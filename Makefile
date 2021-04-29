@@ -37,10 +37,12 @@ RM = rm -f
 
 all: $(NAME)
 
-$(NAME):	$(OBJ)
+libft: 
+	@echo $(YLW) "[Libft compilation...]"
 	@make -C libft/
-	@echo $(YLW)"[Libft compilation...]"
-	@echo $(GRN)"[Libft transfered !]"
+	@echo $(GRN)"[Libft done !]"
+
+$(NAME):	libft $(OBJ) 
 	@echo $(YLW)"[Minishell compilation...]"
 	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
 	@echo $(GRN)"[Minishell ready !]"
