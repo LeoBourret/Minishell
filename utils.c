@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:10:52 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/28 18:17:25 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:52:18 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_env_lst	*get_env(t_env_lst *list, char **envp)
 	free(name);
 	free(content);
 	begin = list;
-	printf("%p\n%p\n\n", begin, list);
 	i = 0;
 	while (envp[++i])
 	{
