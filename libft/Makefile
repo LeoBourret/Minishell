@@ -30,7 +30,6 @@ LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
 PURPLE       := $(shell tput -Txterm setaf 5)
 BLUE         := $(shell tput -Txterm setaf 6)
 WHITE        := $(shell tput -Txterm setaf 7)
-
 RESET        := $(shell tput -Txterm sgr0)
 
 all: $(NAME)

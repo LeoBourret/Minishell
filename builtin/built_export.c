@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:50:56 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 13:56:38 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/04/29 16:15:52 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-t_env_list		*env_sort(t_env_list *
+int builtin_export(char ***cmds)
+{
+	return 0;
+}

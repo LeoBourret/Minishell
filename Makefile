@@ -1,19 +1,25 @@
 NAME = minishell
 
 RED="\033[0;31m"
+GRN="\033[1;32m"
 YLW="\033[0;33m"
 END="\033[0m"
 
-SRCS_DIR_BUILTIN = builtin/
-SRCS_DIR_SRCS = srcs/
+DIR_BUILTIN = builtin/
+DIR_SRCS = srcs/
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
 
 SRC_BUILTIN =	built_cd.c \
 				built_echo.c \
+				built_export.c \
+				built_env.c \
+				built_pwd.c \
+				built_exec.c \
+				built_exit.c \
+				built_unset.c \
 
-SRC =	main.c \
+SRC_SRCS =	main.c \
 		ft_split_args.c \
 		ft_split_cmd.c \
 		get_next_line.c \
@@ -22,50 +28,32 @@ SRC =	main.c \
 		built_minishell.c \
 		set_canonic.c \
 
-SRCS_A = $(addprefix $(SRCS_DIR_SRCS), $(SRCS))
-SRCS_B = $(addprefix $(SRCS_DIR_BUILTIN), $(SRCS_BUILTIN))
+SRC = 	$(addprefix $(DIR_SRCS), $(SRC_SRCS)) \
+		$(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
 
-OBJ = $(SRC_A:.c=.o) $(SRC_B:.c=.o)
+OBJ = $(SRC:.c=.o)
 
 RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -L. -lft -o $(NAME)
+$(NAME):	$(OBJ)
+	@make -C libft/
+	@echo $(YLW)"[Libft compilation...]"
+	@echo $(GRN)"[Libft transfered !]"
+	@echo $(YLW)"[Minishell compilation...]"
+	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
+	@echo $(GRN)"[Minishell ready !]"
 
 clean:
-	$(RM) $(OBJ)
+	@echo $(RED)"[Libft remove...]"
+	@make fclean -C libft
+	@$(RM) libft.a
+	@$(RM) libft.h
+	@echo $(RED)"[Minishell remove...]"
+	@$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
-
-$(NAME_A) : $(OBJSRCS_A)
-	@echo $(YLW)"[Libft compilation...]"
-	@make -C libft
-	@echo $(RED)"[Remove last version...]"
-	@rm -rf checker
-	@echo $(YLW)"[Checker compilation..]"
-	@gcc $(SRCS_A) -I libft/ -lft -L libft/ -o $(NAME_A)
-	@echo $(RED)"[Done !]"
-	@echo $(END)
-	@echo $(RED)"[Remove last version...]"
-	@rm -rf push_swap
-	@echo $(YLW)"[Push_swap compilation..]"
-	@gcc $(SRCS_B) -I libft/ -lft -L libft/ -o $(NAME_B)
-	@echo $(RED)"[Done !]"
-	@echo $(END)
-
-
-
-$(NAME_B) : $(OBJSRCS_B)
-	@echo $(YLW)"[Libft compilation...]"
-	@make -C libft
-
-all : $(NAME_B) $(NAME_A)
-
-clean :
-	@rm -rf $(OBJSRCS_A)
-	@rm -rf $(OBJSRCS_B)
