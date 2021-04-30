@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 14:21:21 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/04/30 11:15:12 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int main(int ac, char **av, char **envp)
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
-		printf("Hello\n");
 		cmds = get_cmd(get_line());
 		print_cmd(cmds);			
 		get_built_in(cmds, env_list);

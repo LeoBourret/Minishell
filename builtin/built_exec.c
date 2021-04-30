@@ -25,7 +25,7 @@ int exec_built_in (char ***cmds, t_env_lst *envlst)
 	else if (ft_strcmp(cmds[0][0],"unset") == 0)
 		return builtin_unset(cmds);
 	else if (ft_strcmp(cmds[0][0],"export") == 0)
-		return builtin_export(cmds);
+		return builtin_export(cmds, envlst);
 	return 0;
 }
 
