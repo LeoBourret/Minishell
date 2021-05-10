@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:50:56 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/30 16:29:37 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:19:41 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_env_lst        *env_sort(t_env_lst *list, int i)
 	curr = list;
 	begin = list;
 	prev = list;
-	i = 0;
 	while (curr->next)
 	{
 		if ((ft_strcmp(curr->name, curr->next->name)) > 0)
@@ -54,13 +53,25 @@ t_env_lst        *env_sort(t_env_lst *list, int i)
 	return (begin);
 }
 
-int builtin_export(char ***cmds, t_env_lst *envlst)
+int		builtin_export(char ***cmds, t_env_lst *envlst)
 {
-	envlst = env_sort(envlst, 0);
+	t_env_lst *export_lst;
+	t_env_lst *begin;
+
+	begin = ft_lstnew_env(envlst->name, envlst->content);
+	export_lst = begin;
+	envlst = envlst->next;
 	while (envlst)
 	{
-		printf("%s=%s\n", envlst->name, envlst->content);
+		export_lst->next = ft_lstnew_env(envlst->name, envlst->content);
+		export_lst = export_lst->next;
 		envlst = envlst->next;
 	}
-	return 0;
+	export_lst = env_sort(begin, 0);
+	while (export_lst)
+	{
+		printf("%s=%s\n", export_lst->name, export_lst->content);
+		export_lst = export_lst->next;
+	}
+	return (0);
 }

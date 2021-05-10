@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:10:52 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 14:11:53 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:18:08 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_env_lst	*get_env(t_env_lst *list, char **envp)
 	char	*content;
 	t_env_lst *begin;
 
-	j = -1;
-	while (envp[0][++j] != '=')
-		;
+	j = 0;
+	while (envp[0][j] != '=')
+		j++;
 	name = ft_substr(envp[0], 0, j);
 	while (envp[0][++j])
 		;
