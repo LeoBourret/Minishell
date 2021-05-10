@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/10 14:52:35 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:27:45 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int builtin_pwd(char ***cmds);
 int builtin_unset(char ***cmds);
 int builtin_export(char ***cmds, t_env_lst *envlst);
 int builtin_env(char ***cmds, t_env_lst *envlst);
+int exec_ve(char **args);
 int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 #endif

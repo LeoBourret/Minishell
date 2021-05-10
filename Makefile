@@ -25,7 +25,6 @@ SRC_SRCS =	main.c \
 		get_next_line.c \
 		utils.c \
 		ft_lstnew_env.c \
-		built_minishell.c \
 		set_canonic.c \
 
 SRC = 	$(addprefix $(DIR_SRCS), $(SRC_SRCS)) \
