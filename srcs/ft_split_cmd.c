@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 14:11:43 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:24:02 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	***ft_split_cmd(char *str, char *separator)
 	cmd_count = cmd_counter(str, separator);
 	if (!(cmds = malloc(sizeof(char **) * (cmd_count + 1))))
 		return (NULL);
+	cmds[cmd_count] = NULL;
 	i = -1;
 	j = 0;
 	while (++i < cmd_count)
@@ -77,6 +78,5 @@ char	***ft_split_cmd(char *str, char *separator)
 		while (!is_separator(str[j], separator) && str[j])
 			j++;
 	}
-	cmds[i] = NULL;
 	return (cmds);
 }
