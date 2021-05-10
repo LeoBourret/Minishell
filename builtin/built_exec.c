@@ -31,50 +31,54 @@ int exec_built_in (char ***cmds, t_env_lst *envlst)
 
 int exec_ve(char **args)
 {
-    pid_t pid, wpid;
-    int status;
+	pid_t pid, wpid;
+	int status;
 
-    pid = fork();
-    if (pid == 0)
-    {
-        if (execvp(args[0], args) == -1)
-        {
-            perror("");
-        }
-        exit(EXIT_FAILURE);
-    }
-    else if (pid < 0)
-    {
-        perror("");
-    }
-    else
-    {
-        do
-        {
-            wpid = waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
-    return 1;
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execvp(args[0], args) == -1)
+		{
+			perror("");
+		}
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		perror("");
+	}
+	else
+	{
+		do
+		{
+			wpid = waitpid(pid, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
+	return 1;
 }
 
 void get_built_in (char ***cmds, t_env_lst *envlst)
 {
 	int i;
+	int j;
+	int builtin;
 
 	if (!cmds || !*cmds)
 		return ;
-	i = -1;
-	while (builtin_list[++i])
+	j = -1;
+	while (cmds[++j])
 	{
-		if (ft_strcmp(builtin_list[i], cmds[0][0]) == 0)
-		{
-			exec_built_in(cmds, envlst);
-			break ;
-		}
+		builtin = 0;
+		i = -1;
+		while (builtin_list[++i])
+			if (ft_strcmp(builtin_list[i], cmds[j][0]) == 0)
+			{
+				builtin = 1;
+				break ;
+			}
+		if (builtin == 1)
+			exec_built_in(&cmds[j], envlst);
 		else
-		{
-			exec_ve(cmds[0]);
-			break ;
-		}
+			exec_ve(cmds[j]);
 	}
 }

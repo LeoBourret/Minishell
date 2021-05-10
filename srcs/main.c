@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/30 14:10:22 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/10 21:39:15 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		cmds = get_cmd(get_line());
-		print_cmd(cmds);			
+//		print_cmd(cmds);
 		get_built_in(cmds, env_list);
 		free_cmds(cmds);
 	}
