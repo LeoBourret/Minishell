@@ -6,24 +6,30 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 14:11:40 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:19:49 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		is_space(char c)
+char	*get_arg(char *s)
 {
-	if (c == ' ')
-		return (1);
-	return (0);
-}
+	char	*arg;
+	int		len;
+	int		quote;
 
-int		is_sep(char c)
-{
-	if (c == '|' || c == ';')
-		return (1);
-	return (0);
+	quote = 0;
+	if (s[0] == '"')
+	{
+		s++;
+		quote = 1;
+	}
+	s++;
+	len = 0;
+	while (s[len] && !is_sep(s[len]) && (quote == 1 && s[len] != '"') && s[len] != '\\')
+		len++;
+	if (!is_space
+	return (arg);
 }
 
 char	*ft_strdup_space_sep(char *str)
@@ -39,7 +45,9 @@ char	*ft_strdup_space_sep(char *str)
 	quote = 0;
 	while (str[++lenght] && !is_sep(str[lenght]))
 	{
-		if (lenght == 0 && (str[lenght] == '\'' || str[lenght] == '"'))
+		if ((str[i] == '"' && str[i + 1] == '$') || str[i] == '$')
+			return (get_arg(str));
+		else if (lenght == 0 && (str[lenght] == '\'' || str[lenght] == '"'))
 		{
 			quote = 1;
 			j = get_to_next_quote(str, lenght);
@@ -76,9 +84,9 @@ char	*ft_strdup_space_sep(char *str)
 
 int		args_counter(char *str)
 {
-	int i;
-	int count;
-
+	int		i;
+	int		count;
+	char	*arg;
 	i = 0;
 	count = 1;
 	i = pass_cmd_name(str, i);
@@ -95,6 +103,8 @@ int		args_counter(char *str)
 			count++;
 		i++;
 	}
+	if (!is_space(str[i]) && is_sep(str[i + 1]))
+		count++;
 //	printf("args nb = %d\n", count);
 	return (count);
 }

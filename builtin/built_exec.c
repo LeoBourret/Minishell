@@ -13,13 +13,13 @@ char	*builtin_list[] = {
 int exec_built_in (char ***cmds, t_env_lst *envlst)
 {
 	if (ft_strcmp(cmds[0][0],"echo") == 0)
-		return builtin_echo(cmds);
+		return builtin_echo(cmds, envlst);
 	else if (ft_strcmp(cmds[0][0],"cd") == 0)
 		return builtin_cd(cmds);
 	else if (ft_strcmp(cmds[0][0],"exit") == 0)
 		return builtin_exit(cmds);	
 	else if (ft_strcmp(cmds[0][0],"pwd") == 0)
-		return builtin_pwd(cmds);
+		return builtin_pwd(cmds, envlst);
 	else if (ft_strcmp(cmds[0][0],"env") == 0)
 		return builtin_env(cmds, envlst);
 	else if (ft_strcmp(cmds[0][0],"unset") == 0)
@@ -39,13 +39,13 @@ int exec_ve(char **args)
 	{
 		if (execvp(args[0], args) == -1)
 		{
-			perror("");
+			perror("BDSM");
 		}
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 	{
-		perror("");
+		perror("BDSM");
 	}
 	else
 	{
