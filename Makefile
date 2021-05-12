@@ -21,6 +21,8 @@ SRC_BUILTIN =	built_cd.c \
 
 SRC_SRCS =	main.c \
 		ft_split_args.c \
+		list_tools.c \
+		ft_is.c \
 		ft_split_cmd.c \
 		get_next_line.c \
 		utils.c \

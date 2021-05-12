@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/10 15:26:45 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:54:35 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		cmd_counter(char *str, char *separator)
 	return (count);
 }
 
-char	***ft_split_cmd(char *str, char *separator)
+char	***ft_split_cmd(char *str, char *separator, t_env_lst *env)
 {
 	char	***cmds;
 	int		cmd_count;
@@ -74,7 +74,7 @@ char	***ft_split_cmd(char *str, char *separator)
 	{
 		while (is_separator(str[j], separator) && str[j])
 			j++;
-		cmds[i] = ft_split_args(&str[j]);
+		cmds[i] = ft_split_args(&str[j], env);
 		while (!is_separator(str[j], separator) && str[j])
 			j++;
 	}

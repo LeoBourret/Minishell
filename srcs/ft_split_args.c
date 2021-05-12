@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/11 16:19:49 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:49:26 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_arg(char *s)
 	len = 0;
 	while (s[len] && !is_sep(s[len]) && (quote == 1 && s[len] != '"') && s[len] != '\\')
 		len++;
-	if (!is_space
+	//if (!is_space)
 	return (arg);
 }
 
@@ -109,7 +109,7 @@ int		args_counter(char *str)
 	return (count);
 }
 
-char	**ft_split_args(char *str)
+char	**ft_split_args(char *str, t_env_lst *env)
 {
 	char	**args;
 	int		args_count;

@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:24:47 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/10 21:03:30 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:57:05 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-t_envlst	*env_copy(t_envlst *src)
+#include "../includes/minishell.h"
+/*
+t_env_lst	*env_copy(t_env_lst *src)
 {
-	t_envlst *begin;
+	t_env_lst *begin;
 
 	begin =
 }
+*/
