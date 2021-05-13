@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/12 15:17:20 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:06:39 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ char *get_line()
 	struct	termios term;
 	char	buf;
 	int		len;
+	int		cur_pos;
 
 	tcgetattr(0, &term);
 	line = ft_strdup("");
 	set_term_ncan();
 	len = 0;
+	cur_pos = 0;
 	ft_putstr_fd("Brain Diff shell > ", 1);
 	while (1)
 	{
@@ -84,16 +86,17 @@ char *get_line()
 			if (buf == '[')
 			{
 				read(STDIN_FILENO, &buf, 1);
-				if (buf == 'D' && len > 0)
+				if (buf == 'D' && cur_pos > 0)
 					ft_putstr_fd("\b", 1);
+				cur_pos--;
 			}
 		}
-		else if (buf == 127)
+		else if (buf == 127)  // del
 		{
 			if (len > 0)
 				ft_putstr_fd("\b \b", 1);
 			len--;
-			line[len] = '\0';
+			cur_pos--;
 		}
 		else if (buf == 3) // ctrl + c
 		{
@@ -106,11 +109,13 @@ char *get_line()
 			line = ft_realloc(line, len + 1);
 			line[len] = buf;
 			len++;
+			cur_pos++;
 		}
 //		printf("buf = %c\n", buf);
 //		printf("line = %s len = %lu\n", line, ft_strlen(line));
 	}
 	set_term_can(term);
+	printf("line = %s\n", line);
 	return (line);
 }
 
