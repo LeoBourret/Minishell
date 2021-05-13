@@ -17,7 +17,7 @@ SRC_BUILTIN =	built_cd.c \
 				built_pwd.c \
 				built_exec.c \
 				built_exit.c \
-				built_unset.c \
+				built_unset.c
 
 SRC_SRCS =	main.c \
 		ft_split_args.c \
@@ -27,7 +27,7 @@ SRC_SRCS =	main.c \
 		get_next_line.c \
 		utils.c \
 		ft_lstnew_env.c \
-		set_canonic.c \
+		set_canonic.c
 
 SRC = 	$(addprefix $(DIR_SRCS), $(SRC_SRCS)) \
 		$(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))

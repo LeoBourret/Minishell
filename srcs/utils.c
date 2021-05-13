@@ -6,11 +6,45 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:10:52 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/11 14:58:13 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/13 16:06:56 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		ft_whereis_char(char *s, int c)
+{
+	int i;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin_till_space(char const *s1, char const *s2)
+{
+	char		*new;
+	size_t		len;
+	size_t		i;
+	size_t		j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(new = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		new[i] = s1[i];
+	j = -1;
+	while (s2[++j] && !is_space(s2[j]))
+		new[i++] = s2[j];
+	if (i > 0 && (new[i - 1] == '\'' || new[i - 1] == '"'))
+		new[i - 1] = '\0';
+	new[i] = '\0';
+	return (new);
+}
 
 int		get_to_next_quote(char *s, int i)
 {

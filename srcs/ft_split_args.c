@@ -6,17 +6,19 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/12 11:49:26 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/05/13 16:11:04 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_arg(char *s)
+char	*get_arg(char *s, t_env_lst *env)
 {
 	char	*arg;
+	char	*ret;
 	int		len;
 	int		quote;
+	int		end_quote;
 
 	quote = 0;
 	if (s[0] == '"')
@@ -26,13 +28,49 @@ char	*get_arg(char *s)
 	}
 	s++;
 	len = 0;
-	while (s[len] && !is_sep(s[len]) && (quote == 1 && s[len] != '"') && s[len] != '\\')
+	end_quote = 0;
+	while (s[len] && !is_sep(s[len]) && !is_space(s[len]) && s[len] != '\\' && s[len] != '"' && s[len] != '\'')
+	{
+		if ((quote == 1 && s[len] == '"') || s[len] == '\\')
+				break ;
+		if (quote == 0 && end_quote == 0 && (s[len] == '\'' || s[len] == '"'))
+			end_quote = get_to_next_quote(s, len);
+		if (end_quote != 0 && len == end_quote)
+			break ;
 		len++;
-	//if (!is_space)
-	return (arg);
+	}
+	if (quote == 1)
+	{
+//		printf("MDR\n");
+		arg = ft_substr(s, 0, len);
+	}
+	else
+		arg = ft_substr(s, 0, len);
+//	printf("ARG = %s\t\tS = %s\t\tlen = %d\n", arg, s, len);
+	while (env && (ft_strcmp(arg, env->name) != 0))
+		env = env->next;
+	if (env != NULL)
+	{
+		free(arg);
+		arg = ft_strdup(env->content);
+	}
+	else
+	{
+		free(arg);
+		arg = NULL;
+	}
+	if (is_space(s[len]))
+		return (arg);
+	if (arg)
+		ret = ft_strjoin_till_space(arg, s + len + 1);
+	else
+		ret = ft_substr(s + len + 1, 0, ft_whereis_char(s + len, ' '));
+//	printf("ret = %s\n", ret);
+	free(arg);
+	return (ret);
 }
 
-char	*ft_strdup_space_sep(char *str)
+char	*ft_strdup_space_sep(char *str, t_env_lst *env)
 {
 	int		i;
 	int		j;
@@ -46,7 +84,7 @@ char	*ft_strdup_space_sep(char *str)
 	while (str[++lenght] && !is_sep(str[lenght]))
 	{
 		if ((str[i] == '"' && str[i + 1] == '$') || str[i] == '$')
-			return (get_arg(str));
+			return (get_arg(str, env));
 		else if (lenght == 0 && (str[lenght] == '\'' || str[lenght] == '"'))
 		{
 			quote = 1;
@@ -127,7 +165,7 @@ char	**ft_split_args(char *str, t_env_lst *env)
 	{
 		while (is_space(str[j]) && str[j])
 			j++;
-		args[i] = ft_strdup_space_sep(&str[j]);
+		args[i] = ft_strdup_space_sep(&str[j], env);
 		if (str[j] == '\'' || str[j] == '"')
 			j = get_to_next_quote(str, j);
 		while (!is_space(str[j]) && str[j])
