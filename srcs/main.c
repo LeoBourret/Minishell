@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/13 18:06:39 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:06:25 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,32 @@ char *get_line()
 			{
 				read(STDIN_FILENO, &buf, 1);
 				if (buf == 'D' && cur_pos > 0)
+				{
 					ft_putstr_fd("\b", 1);
-				cur_pos--;
+					cur_pos--;
+				}
+				else if (buf == 'C' && cur_pos < len)
+				{
+					ft_putstr_fd("\e[1C", 1);
+					cur_pos++;
+				}
 			}
 		}
 		else if (buf == 127)  // del
 		{
-			if (len > 0)
+	/*		{
+				line = del_char(line, cur_pos);
+				clear_and_print(ft_strlen(line + 1), line, cur_pos);
+				cur_pos--;
+				len--;
+			}*/
+			if (cur_pos > 0)
+			{
 				ft_putstr_fd("\b \b", 1);
-			len--;
-			cur_pos--;
+				line = del_char(line, cur_pos);
+				len--;
+			}
+//			printf("\nline = %s\n", line);
 		}
 		else if (buf == 3) // ctrl + c
 		{
@@ -108,8 +124,10 @@ char *get_line()
 			write(1, &buf, 1);
 			line = ft_realloc(line, len + 1);
 			line[len] = buf;
+		//	clear_and_print(ft_strlen(line), line, 0);
 			len++;
 			cur_pos++;
+	//		ft_putstr_fd("\e[1C", 1);
 		}
 //		printf("buf = %c\n", buf);
 //		printf("line = %s len = %lu\n", line, ft_strlen(line));

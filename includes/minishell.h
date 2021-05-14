@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/13 16:02:00 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/14 14:48:55 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int				is_space(char c);
 int				is_sep(char c);
 char			*ft_strjoin_till_space(char const *s1, char const *s2);
 int				ft_whereis_char(char *s, int c);
+char			*del_char(char *src, int pos);
+void			clear_and_print(int len, char *s, int pos);
 
 
 #endif
