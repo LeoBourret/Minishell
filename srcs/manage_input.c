@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:27:19 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/14 18:04:01 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:59:53 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,21 @@ void	clear_and_print(int len, char *s, int pos)
 	{
 		ft_putstr_fd("\b", 1);
 	}
+}
+
+char	*get_historic(int up)
+{
+	int		i;
+	int		fd;
+	char	**line;
+
+	up--;
+	fd = open("./historic", O_RDONLY);
+	line = malloc(sizeof(char *));
+	i = -1;
+	while ((get_next_line(fd, &line[++i])) == 1)
+		line = ft_realloc_double(line);
+	while (line[i])
+		i++;
+	while ()
 }
