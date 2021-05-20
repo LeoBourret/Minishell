@@ -40,7 +40,7 @@ RM = rm -f
 all: $(NAME)
 
 
-$(NAME): $(OBJ) 
+$(NAME): lib $(OBJ) 
 	@echo $(YLW)"[Minishell compilation...]"
 	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
 	@echo $(GRN)"[Minishell ready !]"
