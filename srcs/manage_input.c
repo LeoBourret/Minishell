@@ -6,11 +6,17 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:27:19 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 14:16:07 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:41:10 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	get_to_cur_pos(int from, int to)
+{
+	while (--from >= to)
+		ft_putchar_fd('\b', 1);
+}
 
 char	*del_char(char *src, int pos)
 {
@@ -46,4 +52,24 @@ void	clear_and_print(int len, char *s, int pos)
 //	tmp = -1;
 //	while (s[++tmp])
 //		ft_putstr_fd("\e[1C", 1);
+}
+
+char	*insert_char(char *start, char c, char *end)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	res = malloc(sizeof(char) * (ft_strlen(start) + 1 + ft_strlen(end) + 1));
+	i = -1;
+	while (start[++i])
+		res[i] = start[i];
+	res[i] = c;
+	j = -1;
+	while (end[++j])
+		res[i++] = end[j];
+	res[i] = '\0';
+	free(start);
+	free(end);
+	return (res);
 }

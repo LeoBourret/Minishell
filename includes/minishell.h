@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 14:02:39 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:42:17 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_env_lst		*get_env(t_env_lst *list, char **envp);
 int				pass_cmd_name(char *s, int i);
 char			***ft_split_cmd(char *str, char *separator, t_env_lst *env);
 char			**ft_split_args(char *str, t_env_lst *env);
+char			*insert_char(char *start, char c, char *end);
 t_env_lst		*ft_lstnew_env(char *v_name, char *v_content);
 int				minishell_launch(char **av, char **envp);
 int				minishell_cd(t_fct_params *params);
@@ -68,5 +69,6 @@ char			*del_char(char *src, int pos);
 void			clear_and_print(int len, char *s, int pos);
 char			*get_historic(int up);
 int				historic_size(void);
+void			get_to_cur_pos(int from, int to);
 
 #endif

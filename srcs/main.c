@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 14:19:17 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:41:15 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*get_line(int up)
 	char	buf;
 	int		len;
 	int		cur_pos;
+	char	*tmp;
 
 	tcgetattr(0, &term);
 	line = ft_strdup("");
@@ -139,19 +140,22 @@ char	*get_line(int up)
 		}
 		else if (buf == 127)  // del
 		{
-	/*		{
-				line = del_char(line, cur_pos);
-				clear_and_print(ft_strlen(line + 1), line, cur_pos);
-				cur_pos--;
-				len--;
-			}*/
 			if (cur_pos > 0)
+			{
+				line = del_char(line, cur_pos);
+				clear_and_print(len, line, cur_pos);
+				write(1, " \b", 2);
+				cur_pos--;
+				get_to_cur_pos(ft_strlen(line), cur_pos);
+				len--;
+			}
+			/*if (cur_pos > 0)
 			{
 				ft_putstr_fd("\b \b", 1);
 				line = del_char(line, cur_pos);
 				len--;
 				cur_pos--;
-			}
+			}*/
 //			printf("\nline = %s\n", line);
 		}
 		else if (buf == 3) // ctrl + c
@@ -161,13 +165,23 @@ char	*get_line(int up)
 		}
 		else
 		{
-			write(1, &buf, 1);
-			line = ft_realloc(line, len + 1);
-			line[len] = buf;
-		//	clear_and_print(ft_strlen(line), line, 0);
-			len++;
-			cur_pos++;
-	//		ft_putstr_fd("\e[1C", 1);
+			if (cur_pos == len)
+			{
+				write(1, &buf, 1);
+				line = ft_realloc(line, len + 1);
+				line[len] = buf;
+				len++;
+				cur_pos++;
+			}
+			else
+			{
+				tmp = insert_char(ft_substr(line, 0, cur_pos),
+buf, ft_substr(line, cur_pos, ft_strlen(line) - cur_pos));
+				free(line);
+				line = ft_strdup(tmp);
+				cur_pos = ft_strlen(line);
+				clear_and_print(len, line, cur_pos);
+			}
 		}
 //		printf("buf = %c\n", buf);
 //		printf("line = %s len = %lu\n", line, ft_strlen(line));
