@@ -6,13 +6,13 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/20 17:47:29 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:19:17 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void free_cmds(char ***cmds)
+void	free_cmds(char ***cmds)
 {
 	int i;
 	int j;
@@ -31,7 +31,7 @@ void free_cmds(char ***cmds)
 	}
 }
 
-void print_cmd(char ***cmds)
+void	print_cmd(char ***cmds)
 {
 	int i;
 	int j;
@@ -49,21 +49,31 @@ void print_cmd(char ***cmds)
 	}
 }
 
-char ***get_cmd(char *line, t_env_lst *env)
+char	***get_cmd(char *line, t_env_lst *env)
 {
 	char	***cmds;
 	int		fd;
+	char	*tmp;
 
-	fd = open("./historic", O_WRONLY|O_CREAT|O_APPEND);
-	write(fd, line, ft_strlen(line));
-	write(fd, "\n", 1);
-	close(fd);
-	cmds = ft_split_cmd(line, ";|", env);
-	free(line);
+	cmds = malloc(sizeof(char **));
+	cmds = NULL;
+	if (*line && line)
+	{
+		tmp = get_historic(1);
+		if ((ft_strcmp(tmp, line)) != 0)
+		{
+			fd = open("./historic", O_WRONLY|O_CREAT|O_APPEND);
+			write(fd, line, ft_strlen(line));
+			write(fd, "\n", 1);
+			close(fd);
+		}
+		cmds = ft_split_cmd(line, ";|", env);
+		free(line);
+	}
 	return (cmds);
 }
 
-char *get_line(int up)
+char	*get_line(int up)
 {
 	char	*line;
 	struct	termios term;
@@ -77,6 +87,8 @@ char *get_line(int up)
 	len = 0;
 	cur_pos = 0;
 	ft_putstr_fd("Brain Diff shell > ", 1);
+	line = malloc(sizeof(char));
+	*line = '\0';
 	while (1)
 	{
 		read(STDIN_FILENO, &buf, 1);
@@ -101,10 +113,27 @@ char *get_line(int up)
 					ft_putstr_fd("\e[1C", 1);
 					cur_pos++;
 				}
-				else if (buf == 'A')
+				else if (buf == 'A' && up < historic_size())
 				{
+					len = ft_strlen(line);
 					free(line);
+					up++;
 					line = get_historic(up);
+//					printf("hist = %s\tcur_pos = %d\n", line, cur_pos);
+					clear_and_print(len, line, cur_pos);
+					cur_pos = ft_strlen(line);
+					len = cur_pos;
+//`					printf("\tcur_pos = %d\n", cur_pos);
+				}
+				else if (buf == 'B' && up != 0)
+				{
+					len = ft_strlen(line);
+					free(line);
+					up--;
+					line = get_historic(up);
+					clear_and_print(len, line, cur_pos);
+					cur_pos = ft_strlen(line);
+					len = cur_pos;
 				}
 			}
 		}
@@ -121,6 +150,7 @@ char *get_line(int up)
 				ft_putstr_fd("\b \b", 1);
 				line = del_char(line, cur_pos);
 				len--;
+				cur_pos--;
 			}
 //			printf("\nline = %s\n", line);
 		}
@@ -147,7 +177,7 @@ char *get_line(int up)
 	return (line);
 }
 
-int main(int ac, char **av, char **envp)
+int		main(int ac, char **av, char **envp)
 {
 	t_env_lst *env_list;
 	(void)ac;
@@ -161,8 +191,11 @@ int main(int ac, char **av, char **envp)
 	{
 		cmds = get_cmd(get_line(0), env_list);
 //		print_cmd(cmds);
-		get_built_in(cmds, env_list);
-		free_cmds(cmds);
+		if (cmds)
+		{
+			get_built_in(cmds, env_list);
+			free_cmds(cmds);
+		}
 	}
 	return (0);
 }

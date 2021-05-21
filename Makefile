@@ -28,7 +28,8 @@ SRC_SRCS =	main.c \
 		utils.c \
 		ft_lstnew_env.c \
 		set_canonic.c \
-		manage_input.c
+		manage_input.c \
+		historic.c
 
 SRC = 	$(addprefix $(DIR_SRCS), $(SRC_SRCS)) \
 		$(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
