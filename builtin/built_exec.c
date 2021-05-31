@@ -23,7 +23,7 @@ int exec_built_in (char ***cmds, t_env_lst *envlst)
 	else if (ft_strcmp(cmds[0][0],"env") == 0)
 		return builtin_env(cmds, envlst);
 	else if (ft_strcmp(cmds[0][0],"unset") == 0)
-		return builtin_unset(cmds);
+		return builtin_unset(cmds, envlst);
 	else if (ft_strcmp(cmds[0][0],"export") == 0)
 		return builtin_export(cmds, envlst);
 	return 0;
@@ -79,6 +79,8 @@ void get_built_in (char ***cmds, t_env_lst *envlst)
 		if (builtin == 1)
 			exec_built_in(&cmds[j], envlst);
 		else
+		{
 			exec_ve(cmds[j]);
+		}
 	}
 }

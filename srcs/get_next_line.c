@@ -6,13 +6,13 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 18:21:42 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/29 14:11:45 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/05/31 13:50:17 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_strncpy(char *s, int n)
+char	*ft_strndup(char *s, int n)
 {
 	char	*new;
 	int		i;
@@ -39,7 +39,7 @@ int		fill_line(char **file_content, char **line)
 		len++;
 	if ((*file_content)[len] == '\n')
 	{
-		*line = ft_strncpy(*file_content, len);
+		*line = ft_strndup(*file_content, len);
 		tmp = ft_strdup(&(*file_content)[len + 1]);
 		if (tmp == NULL)
 			return (-1);

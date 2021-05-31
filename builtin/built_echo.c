@@ -18,22 +18,24 @@ int		is_n(char *s)
 
 int		builtin_echo(char ***cmds, t_env_lst *env)
 {
-	int i;
+	int	i;
+	int	option;
 
-	i = 0;
-	if ((is_n(cmds[0][1])) == 1)
-	{
+	option = 0;
+	i = 1;
+	while ((is_n(cmds[0][i])) == 1)
 		i++;
-		while (cmds[0][++i])
-			printf("%s ", cmds[0][i]);
-		printf("\b \b");
-		fflush(stdout);
-	}
-	else
+	if (i > 1)
+		option = 1;
+	while (cmds[0][i])
 	{
-		while (cmds[0][++i])
+		if (cmds[0][i + 1])
 			printf("%s ", cmds[0][i]);
-		printf("\n");
+		else
+			printf("%s", cmds[0][i]);
+		i++;
 	}
+	if (option == 0)
+		printf("\n");
 	return (0);
 }

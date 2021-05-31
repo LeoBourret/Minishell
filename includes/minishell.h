@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 15:42:17 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:18:31 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			get_built_in (char ***cmds, t_env_lst *envlst);
 int				builtin_exit(char ***cmds);
 int				builtin_cd(char ***cmds, t_env_lst *envlst);
 int				builtin_pwd(char ***cmds, t_env_lst *envlst);
-int				builtin_unset(char ***cmds);
+int				builtin_unset(char ***cmds, t_env_lst *env);
 int				builtin_export(char ***cmds, t_env_lst *envlst);
 int				builtin_env(char ***cmds, t_env_lst *envlst);
 int				exec_ve(char **args);
@@ -70,5 +70,6 @@ void			clear_and_print(int len, char *s, int pos);
 char			*get_historic(int up);
 int				historic_size(void);
 void			get_to_cur_pos(int from, int to);
+void	ft_env_remove_if(t_env_lst **begin_list, void *data_ref, int (*cmp)());
 
 #endif

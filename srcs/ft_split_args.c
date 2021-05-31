@@ -6,13 +6,13 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/13 16:11:04 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:44:10 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_arg(char *s, t_env_lst *env)
+char	*get_arg(char *s, t_env_lst *env, int slash, char *tmp)
 {
 	char	*arg;
 	char	*ret;
@@ -32,7 +32,12 @@ char	*get_arg(char *s, t_env_lst *env)
 	while (s[len] && !is_sep(s[len]) && !is_space(s[len]) && s[len] != '\\' && s[len] != '"' && s[len] != '\'')
 	{
 		if ((quote == 1 && s[len] == '"') || s[len] == '\\')
-				break ;
+			break ;
+		if (s[len] == '/')
+		{
+			slash = 1;
+			break ;
+		}
 		if (quote == 0 && end_quote == 0 && (s[len] == '\'' || s[len] == '"'))
 			end_quote = get_to_next_quote(s, len);
 		if (end_quote != 0 && len == end_quote)
@@ -42,11 +47,10 @@ char	*get_arg(char *s, t_env_lst *env)
 	if (quote == 1)
 	{
 //		printf("MDR\n");
-		arg = ft_substr(s, 0, len);
+		ret = ft_substr(s, 0, len);
 	}
 	else
 		arg = ft_substr(s, 0, len);
-//	printf("ARG = %s\t\tS = %s\t\tlen = %d\n", arg, s, len);
 	while (env && (ft_strcmp(arg, env->name) != 0))
 		env = env->next;
 	if (env != NULL)
@@ -61,8 +65,10 @@ char	*get_arg(char *s, t_env_lst *env)
 	}
 	if (is_space(s[len]))
 		return (arg);
-	if (arg)
+	if (arg && slash == 0)
 		ret = ft_strjoin_till_space(arg, s + len + 1);
+	else if (arg && slash == 1)
+		ret = ft_strjoin_till_space(arg, s + len);
 	else
 		ret = ft_substr(s + len + 1, 0, ft_whereis_char(s + len, ' '));
 //	printf("ret = %s\n", ret);
@@ -84,7 +90,7 @@ char	*ft_strdup_space_sep(char *str, t_env_lst *env)
 	while (str[++lenght] && !is_sep(str[lenght]))
 	{
 		if ((str[i] == '"' && str[i + 1] == '$') || str[i] == '$')
-			return (get_arg(str, env));
+			return (get_arg(str, env, 0, NULL));
 		else if (lenght == 0 && (str[lenght] == '\'' || str[lenght] == '"'))
 		{
 			quote = 1;
