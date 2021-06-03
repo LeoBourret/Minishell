@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 15:41:15 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/03 17:49:58 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,36 @@ void	free_cmds(char ***cmds)
 	}
 }
 
-void	print_cmd(char ***cmds)
+void	print_cmd(t_lst *lst)
 {
 	int i;
 	int j;
 
-	if (!cmds)
+	if (!lst)
 		return ;
 	i = -1;
-	while (cmds[++i])
+	while (lst->cmds[++i])
 	{
-		printf("> commande avec ses args respectif:\n> %s\n>\n", cmds[i][0]);
+		printf("> commande avec ses args respectif:\n> %s\n>\n", lst->cmds[i]);
+		/*
 		j = 0;
-		while (cmds[i][++j])
-			printf("> %s\n", cmds[i][j]);
+		while (lst->cmds[++j])
+			printf("> %s\n", lst->cmds[j]);
 		write(2, ">\n", 2);
+		*/
 	}
 }
 
-char	***get_cmd(char *line, t_env_lst *env)
+t_lst	*get_cmd(char *line, t_env_lst *env)
 {
-	char	***cmds;
+	t_lst	*lst;
 	int		fd;
 	char	*tmp;
 
-	cmds = malloc(sizeof(char **));
-	cmds = NULL;
+	lst = malloc(sizeof(t_lst));
+	lst = NULL;
 	if (*line && line)
-	{
+	{/*
 		tmp = get_historic(1);
 		if ((ft_strcmp(tmp, line)) != 0)
 		{
@@ -67,10 +69,11 @@ char	***get_cmd(char *line, t_env_lst *env)
 			write(fd, "\n", 1);
 			close(fd);
 		}
-		cmds = ft_split_cmd(line, ";|", env);
+		*/
+		lst = ft_split_cmd(line, ";|", env);
 		free(line);
 	}
-	return (cmds);
+	return (lst);
 }
 
 char	*get_line(int up)
@@ -197,18 +200,18 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	(void)envp;
-	char ***cmds;
+	t_lst *lst;
 
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
-		cmds = get_cmd(get_line(0), env_list);
-//		print_cmd(cmds);
-		if (cmds)
+		print_cmd(lst);
+		lst = get_cmd(get_line(0), env_list);
+		if (lst)
 		{
-			get_built_in(cmds, env_list);
-			free_cmds(cmds);
+			get_built_in(lst, env_list);
+			free_cmds(lst);
 		}
 	}
 	return (0);

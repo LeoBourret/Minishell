@@ -144,3 +144,5 @@ letsgo
 git
 git add
 git add .
+echo a
+echo

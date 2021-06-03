@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:50:56 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/11 09:53:12 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/03 16:13:54 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		print_sorted(t_env_lst *envlst)
 	return (0);
 }
 
-int		export_var(char ***cmds, t_env_lst *envlst)
+int		export_var(t_lst *lst, t_env_lst *envlst)
 {
 	char	*name;
 	char	*content;
@@ -84,7 +84,7 @@ int		export_var(char ***cmds, t_env_lst *envlst)
 	int		j;
 	char	**var;
 
-	var = &cmds[0][1];
+	var = &lst->cmds[1];
 	while (envlst->next)
 		envlst = envlst->next;
 	i = -1;
@@ -105,14 +105,14 @@ int		export_var(char ***cmds, t_env_lst *envlst)
 	return (0);
 }
 
-int		builtin_export(char ***cmds, t_env_lst *envlst)
+int		builtin_export(t_lst *lst, t_env_lst *envlst)
 {
-	if (!cmds[0][1])
+	if (!lst->cmds[1])
 	{
 		print_sorted(envlst);
 		return (0);
 	}
 	else
-		export_var(cmds, envlst);
+		export_var(&lst->cmds, envlst);
 	return (0);
 }

@@ -1,10 +1,10 @@
 #include "../includes/minishell.h"
 
-int	builtin_cd(char ***cmds, t_env_lst *envlst)
+int	builtin_cd(t_lst *lst, t_env_lst *envlst)
 {
 	int	ret;
 
-	if (cmds[0][1] == NULL)
+	if (lst->cmds[1] == NULL)
 	{
 		while (envlst)
 		{
@@ -19,7 +19,8 @@ int	builtin_cd(char ***cmds, t_env_lst *envlst)
 		}
 		ret = chdir(envlst->content);
 	}
-	else if (ft_strcmp(cmds[0][1], "~") == 0)
+
+	else if (ft_strcmp(lst->cmds[1], "~") == 0)
 	{
 		while (envlst)
 		{
@@ -30,8 +31,8 @@ int	builtin_cd(char ***cmds, t_env_lst *envlst)
 		ret = chdir(envlst->content);
 	}
 	else
-		ret = chdir(cmds[0][1]);
+		ret = chdir(lst->cmds[1]);
 	if (ret == -1)
-		printf("cd: %s: No such file or directory\n", cmds[0][1]);
+		printf("cd: %s: No such file or directory\n", lst->cmds[1]);
 	return (ret);
 }

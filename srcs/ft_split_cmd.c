@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/12 11:54:35 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/03 18:18:09 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int		cmd_counter(char *str, char *separator)
 			count++;
 	return (count);
 }
-
-char	***ft_split_cmd(char *str, char *separator, t_env_lst *env)
+/*
+char	***ft_split_cmd2(char *str, char *separator, t_env_lst *env)
 {
 	char	***cmds;
 	int		cmd_count;
@@ -79,4 +79,46 @@ char	***ft_split_cmd(char *str, char *separator, t_env_lst *env)
 			j++;
 	}
 	return (cmds);
+}
+*/
+int		get_redir(char *str)
+{
+	if (str[0] == '<')
+		return (1);
+	else if (str[0] == '>')
+		if (str[1] ==  '>')
+			return (3);
+		else
+			return (2);
+	else
+		return (0);
+}
+
+t_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
+{
+	t_lst *lst;
+	int cmd_count;
+	int i;
+	int j;
+
+	if (!str || !*str)
+		return (NULL);
+	cmd_count = cmd_counter(str, separator);
+	if (!(lst = malloc(sizeof(t_lst) * (cmd_count + 1))))
+		return (NULL);
+	i = 0;
+	while (is_space(str[i]))
+	{
+		printf("Bruh\n");
+		i++;
+	}
+	if (ft_isalpha(str[i]) == 1)
+		printf("split args\n");//lst->cmds = ft_split_args(str, env);
+	else if (is_separator(str[i], separator))
+		lst->separator->separator = str[i];
+	else if (is_separator(str[i], "><"))
+		lst->redir->redir = get_redir(&str[i]);
+	else
+		printf("error\n");
+	return lst;
 }

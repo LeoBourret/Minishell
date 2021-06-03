@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/31 16:44:10 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:42:22 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*get_arg(char *s, t_env_lst *env, int slash, char *tmp)
 	}
 	if (quote == 1)
 	{
-//		printf("MDR\n");
 		ret = ft_substr(s, 0, len);
 	}
 	else
@@ -71,7 +70,6 @@ char	*get_arg(char *s, t_env_lst *env, int slash, char *tmp)
 		ret = ft_strjoin_till_space(arg, s + len);
 	else
 		ret = ft_substr(s + len + 1, 0, ft_whereis_char(s + len, ' '));
-//	printf("ret = %s\n", ret);
 	free(arg);
 	return (ret);
 }
@@ -110,7 +108,6 @@ char	*ft_strdup_space_sep(char *str, t_env_lst *env)
 		&& str[lenght] == '\\')
 			lenght += 2;
 	}
-//	printf("size of copy arg = %d\n", lenght);
 	if (!(copy = malloc(sizeof(char) * lenght + 1)))
 		return (NULL);
 	i = -1;
@@ -138,7 +135,6 @@ int		args_counter(char *str)
 	{
 		if (str[i - 1] == ' ' && (str[i] == '\'' || str[i] == '"'))
 		{
-//			printf("ft_split args ui\n");
 			i = get_to_next_quote(str, i);
 			count++;
 		}
@@ -149,7 +145,6 @@ int		args_counter(char *str)
 	}
 	if (!is_space(str[i]) && is_sep(str[i + 1]))
 		count++;
-//	printf("args nb = %d\n", count);
 	return (count);
 }
 

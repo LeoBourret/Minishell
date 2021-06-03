@@ -16,23 +16,23 @@ int		is_n(char *s)
 	return (0);
 }
 
-int		builtin_echo(char ***cmds, t_env_lst *env)
+int		builtin_echo(t_lst *lst, t_env_lst *env)
 {
 	int	i;
 	int	option;
 
 	option = 0;
 	i = 1;
-	while ((is_n(cmds[0][i])) == 1)
+	while ((is_n(lst->cmds[i])) == 1)
 		i++;
 	if (i > 1)
 		option = 1;
-	while (cmds[0][i])
+	while (lst->cmds[i])
 	{
-		if (cmds[0][i + 1])
-			printf("%s ", cmds[0][i]);
+		if (lst->cmds[i + 1])
+			printf("%s ", lst->cmds[i]);
 		else
-			printf("%s", cmds[0][i]);
+			printf("%s", lst->cmds[i]);
 		i++;
 	}
 	if (option == 0)
