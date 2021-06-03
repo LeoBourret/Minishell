@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/03 17:49:58 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/03 20:00:29 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ t_lst	*get_cmd(char *line, t_env_lst *env)
 	char	*tmp;
 
 	lst = malloc(sizeof(t_lst));
+	lst->cmds = malloc(1);
+	/*
 	lst = NULL;
 	if (*line && line)
-	{/*
+	{
 		tmp = get_historic(1);
 		if ((ft_strcmp(tmp, line)) != 0)
 		{
@@ -69,10 +71,10 @@ t_lst	*get_cmd(char *line, t_env_lst *env)
 			write(fd, "\n", 1);
 			close(fd);
 		}
-		*/
 		lst = ft_split_cmd(line, ";|", env);
 		free(line);
 	}
+	*/
 	return (lst);
 }
 
@@ -201,13 +203,19 @@ int		main(int ac, char **av, char **envp)
 	(void)av;
 	(void)envp;
 	t_lst *lst;
+	lst = malloc (sizeof(t_lst) + 1);
+	lst->cmds = malloc (sizeof(char) + 1);
+	lst->redir = malloc (sizeof(t_redir) + 1);
+	lst->separator = malloc (sizeof(t_separator) + 1);
 
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
-		print_cmd(lst);
+		//print_cmd(lst);
 		lst = get_cmd(get_line(0), env_list);
+		lst->cmds[0] = "0";
+		printf("%s\n", lst->cmds[0]);
 		if (lst)
 		{
 			get_built_in(lst, env_list);
