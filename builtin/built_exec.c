@@ -66,6 +66,8 @@ void get_built_in (t_lst *lst, t_env_lst *envlst)
 	if (!lst)
 		return ;
 	j = -1;
+	printf ("%s\n", lst->cmds[1]);
+
 	while (lst->cmds[++j])
 	{
 		builtin = 0;

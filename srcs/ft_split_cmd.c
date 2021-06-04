@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/03 19:47:47 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:01:43 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,12 @@ t_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 		i++;
 	}
 	if (ft_isalpha(str[i]) == 1)
-		printf("split args\n");//lst->cmds = ft_split_args(str, env);
-		/*
+		lst->cmds = ft_split_args(str, env);
 	else if (is_separator(str[i], separator))
 		lst->separator->separator = str[i];
 	else if (is_separator(str[i], "><"))
 		lst->redir->redir = get_redir(&str[i]);
 	else
 		printf("error\n");
-		*/
 	return lst;
 }

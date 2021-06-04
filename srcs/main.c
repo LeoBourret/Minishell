@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/03 20:00:29 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:08:32 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ t_lst	*get_cmd(char *line, t_env_lst *env)
 	int		fd;
 	char	*tmp;
 
-	lst = malloc(sizeof(t_lst));
-	lst->cmds = malloc(1);
-	/*
 	lst = NULL;
 	if (*line && line)
 	{
@@ -72,9 +69,8 @@ t_lst	*get_cmd(char *line, t_env_lst *env)
 			close(fd);
 		}
 		lst = ft_split_cmd(line, ";|", env);
-		free(line);
+		//free(line);
 	}
-	*/
 	return (lst);
 }
 
@@ -214,13 +210,14 @@ int		main(int ac, char **av, char **envp)
 	{
 		//print_cmd(lst);
 		lst = get_cmd(get_line(0), env_list);
-		lst->cmds[0] = "0";
-		printf("%s\n", lst->cmds[0]);
-		if (lst)
+		//printf("%s\n", lst->cmds[0]);
+		printf("%d\n", lst->redir->redir);
+		/*if (lst)
 		{
 			get_built_in(lst, env_list);
 			free_cmds(lst);
 		}
+		*/
 	}
 	return (0);
 }
