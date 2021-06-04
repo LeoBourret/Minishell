@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 14:01:43 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:39:45 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,25 @@ char	***ft_split_cmd2(char *str, char *separator, t_env_lst *env)
 	return (cmds);
 }
 */
-int		get_redir(char *str)
+char	*get_redir(char *s)
+{
+	int		i;
+	char	**redir;
+	int		len;
+
+	i = -1;
+	len = 0;
+	while (s[++i])
+	{
+		if ((s[i] == '>' || s[i] == '<') && i == 0)
+		{
+			len++;
+
+		}
+	}
+}
+
+int	which_redir(char *str)
 {
 	if (str[0] == '<')
 		return (1);
@@ -94,17 +112,18 @@ int		get_redir(char *str)
 		return (0);
 }
 
-t_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
+t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 {
-	t_lst *lst;
-	int cmd_count;
-	int i;
-	int j;
+	t_cmd_lst	*lst;
+	int			cmd_count;
+	int			i;
+	int			j;
 
 	if (!str || !*str)
 		return (NULL);
 	cmd_count = cmd_counter(str, separator);
-	if (!(lst = malloc(sizeof(t_lst) * (cmd_count + 1))))
+	lst = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
+	if (!lst)
 		return (NULL);
 	i = 0;
 	while (is_space(str[i]))
@@ -112,13 +131,25 @@ t_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 		printf("Bruh\n");
 		i++;
 	}
-	if (ft_isalpha(str[i]) == 1)
-		lst->cmds = ft_split_args(str, env);
-	else if (is_separator(str[i], separator))
-		lst->separator->separator = str[i];
-	else if (is_separator(str[i], "><"))
-		lst->redir->redir = get_redir(&str[i]);
-	else
-		printf("error\n");
+	j = -1;
+	while (++j < cmd_count)
+	{
+		if (is_separator(str[i], "><"))
+			lst->redir->redir = get_redir(&str[i]);
+		if (ft_isalpha(str[i]) == 1)
+			lst->cmds = ft_split_args(str, env);
+		else if (is_separator(str[i], separator))
+			lst->separator->separator = str[i];
+		else
+			printf("error\n");
+		if (j + 1 != cmd_count)
+		{
+			lst->next = ft_new_cmd_list();
+			lst = lst->next;
+			while (!is_separator(str[i], separator))
+				i++;
+			i++;
+		}
+	}
 	return lst;
 }

@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:24:47 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/31 17:15:38 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:13:05 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ t_env_lst	*env_copy(t_env_lst *src)
 	begin =
 }
 */
+
+t_cmd_lst	*ft_new_cmd_list(void)
+{
+	t_cmd_lst	*new;
+
+	new = malloc(sizeof(t_cmd_lst));
+	if (new == NULL)
+		return (NULL);
+	new->cmds = NULL;
+	new->redir = NULL;
+	new->separator = NULL;
+	new->next = NULL;
+	return (new);
+}
 
 void	ft_env_remove_if(t_env_lst **begin_list, void *data_ref, int (*cmp)())
 {

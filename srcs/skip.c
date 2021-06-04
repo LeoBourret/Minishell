@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_env.c                                    :+:      :+:    :+:   */
+/*   skip.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lebourre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 14:23:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 15:17:06 by lebourre         ###   ########.fr       */
+/*   Created: 2021/06/04 16:37:58 by lebourre          #+#    #+#             */
+/*   Updated: 2021/06/04 16:38:21 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-t_env_lst		*ft_lstnew_env(char *v_name, char *v_content)
+int	skip_space(char *s)
 {
-	t_env_lst *new;
+	int	i;
 
-	if (!(new = malloc(sizeof(t_env_lst))))
-		return (NULL);
-	new->name = ft_strdup(v_name);
-	new->content = ft_strdup(v_content);
-	new->next = NULL;
-	return (new);
+	i = 0;
+	while (s[i] && is_space(s[i]))
+		i++;
+	return (i);
 }
