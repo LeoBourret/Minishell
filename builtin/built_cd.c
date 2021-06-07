@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	builtin_cd(t_lst *lst, t_env_lst *envlst)
+int	builtin_cd(t_cmd_lst *lst, t_env_lst *envlst)
 {
 	int	ret;
 

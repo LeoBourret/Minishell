@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 15:39:45 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:15:27 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ char	*get_redir(char *s)
 		if ((s[i] == '>' || s[i] == '<') && i == 0)
 		{
 			len++;
-
 		}
 	}
+	return NULL;
 }
 
 int	which_redir(char *str)
@@ -135,7 +135,8 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 	while (++j < cmd_count)
 	{
 		if (is_separator(str[i], "><"))
-			lst->redir->redir = get_redir(&str[i]);
+			printf ("oui");
+			//lst->redir->redir = get_redir(&str[i]);
 		if (ft_isalpha(str[i]) == 1)
 			lst->cmds = ft_split_args(str, env);
 		else if (is_separator(str[i], separator))

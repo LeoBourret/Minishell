@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int builtin_unset(t_lst *lst, t_env_lst *env)
+int builtin_unset(t_cmd_lst *lst, t_env_lst *env)
 {
 	int	i;
 

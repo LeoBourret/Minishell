@@ -6,32 +6,32 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 14:08:32 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:47:26 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_cmds(char ***cmds)
+void	free_cmds(t_cmd_lst *lst)
 {
 	int i;
 	int j;
 
-	if (cmds)
+	if (lst)
 	{
 		i = -1;
-		while (cmds[++i])
+		while (lst->cmds)
 		{
 			j = -1;
-			while (cmds[i][++j])
-				free(cmds[i][j]);
-			free(cmds[i]);
+			while (lst->cmds[++j])
+				free(lst->cmds[j]);
+			free(lst->cmds);
 		}
-		free(cmds);
+		free(lst->cmds);
 	}
 }
 
-void	print_cmd(t_lst *lst)
+void	print_cmd(t_cmd_lst *lst)
 {
 	int i;
 	int j;
@@ -51,9 +51,9 @@ void	print_cmd(t_lst *lst)
 	}
 }
 
-t_lst	*get_cmd(char *line, t_env_lst *env)
+t_cmd_lst	*get_cmd(char *line, t_env_lst *env)
 {
-	t_lst	*lst;
+	t_cmd_lst	*lst;
 	int		fd;
 	char	*tmp;
 
@@ -195,29 +195,32 @@ buf, ft_substr(line, cur_pos, ft_strlen(line) - cur_pos));
 int		main(int ac, char **av, char **envp)
 {
 	t_env_lst *env_list;
+	t_cmd_lst *lst;
+	int i;
+
 	(void)ac;
 	(void)av;
 	(void)envp;
-	t_lst *lst;
-	lst = malloc (sizeof(t_lst) + 1);
+	lst = malloc (sizeof(t_cmd_lst) + 1);
 	lst->cmds = malloc (sizeof(char) + 1);
 	lst->redir = malloc (sizeof(t_redir) + 1);
 	lst->separator = malloc (sizeof(t_separator) + 1);
 
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
+	i = 0;
 	while (1)
 	{
-		//print_cmd(lst);
-		lst = get_cmd(get_line(0), env_list);
-		//printf("%s\n", lst->cmds[0]);
-		printf("%d\n", lst->redir->redir);
-		/*if (lst)
+		lst = get_cmd(get_line(0), env_list); // ok
+		//printf("%s\n", lst->cmds[0]); // ok
+		printf ("%d\n", i);
+		if (lst->cmds[i] != NULL)
 		{
 			get_built_in(lst, env_list);
-			free_cmds(lst);
+			printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
+			//free_cmds(lst);
 		}
-		*/
+		i++;
 	}
 	return (0);
 }

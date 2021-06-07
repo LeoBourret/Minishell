@@ -16,7 +16,7 @@ int		is_n(char *s)
 	return (0);
 }
 
-int		builtin_echo(t_lst *lst, t_env_lst *env)
+int		builtin_echo(t_cmd_lst *lst, t_env_lst *env)
 {
 	int	i;
 	int	option;

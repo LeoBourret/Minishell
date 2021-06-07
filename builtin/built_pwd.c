@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int builtin_pwd(t_lst *lst, t_env_lst *envlst)
+int builtin_pwd(t_cmd_lst *lst, t_env_lst *envlst)
 {
 	char *str;
 

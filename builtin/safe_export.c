@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:50:56 by lebourre          #+#    #+#             */
-/*   Updated: 2021/04/30 16:28:19 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/07 11:32:26 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_env_lst        *env_sort(t_env_lst *list, int i)
     return (begin);
 }
 
-int builtin_export(char ***cmds, t_env_lst *envlst)
+int builtin_export(t_cmd_lst *lst, t_env_lst *envlst)
 {
     envlst = env_sort(envlst, 0);
     while (envlst)
@@ -58,5 +58,5 @@ int builtin_export(char ***cmds, t_env_lst *envlst)
         printf("%s=%s\n", envlst->name, envlst->content);
         envlst = envlst->next;
     }
-    return 0;
+    return 0;ß
 }

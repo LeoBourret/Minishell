@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 16:27:21 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:40:33 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct	s_cmd_lst
 	char **cmds;
 	struct s_redir *redir;
 	struct s_separator *separator;
-	struct s_cmd_lst *next;
+	//struct s_cmd_lst *next;
 }				t_cmd_lst;
 
 typedef struct	s_fct_params
@@ -65,6 +65,7 @@ t_cmd_lst		*ft_new_cmd_list(void);
 t_cmd_lst		*ft_split_cmd(char *str, char *separator, t_env_lst *env);
 char			**ft_split_args(char *str, t_env_lst *env);
 char			*insert_char(char *start, char c, char *end);
+t_env_lst		*ft_cmd_lstnew_env(char *v_name, char *v_content);
 t_env_lst		*ft_lstnew_env(char *v_name, char *v_content);
 int				minishell_launch(char **av, char **envp);
 int				minishell_cd(t_fct_params *params);

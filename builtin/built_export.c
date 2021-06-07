@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 13:50:56 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/03 16:13:54 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/07 11:34:43 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,30 @@ t_env_lst        *env_sort(t_env_lst *list, int i)
 	return (begin);
 }
 
+/*
 int		print_sorted(t_env_lst *envlst)
 {
 	t_env_lst *begin;
-	t_env_lst *export_lst;
+	t_env_lst *export_cmd_lst;
 
-	begin = ft_lstnew_env(envlst->name, envlst->content);
-	export_lst = begin;
+	begin = ft_cmd_lstnew_env(envlst->name, envlst->content);
+	export_cmd_lst = begin;
 	envlst = envlst->next;
 	while (envlst)
 	{
-		export_lst->next = ft_lstnew_env(envlst->name, envlst->content);
-		export_lst = export_lst->next;
+		export_cmd_lst->next = ft_cmd_lstnew_env(envlst->name, envlst->content);
+		export_cmd_lst = export_cmd_lst->next;
 		envlst = envlst->next;
 	}
-	export_lst = env_sort(begin, 0);
-	while (export_lst)
+	export_cmd_lst = env_sort(begin, 0);
+	while (export_cmd_lst)
 	{
-		printf("%s=%s\n", export_lst->name, export_lst->content);
-		export_lst = export_lst->next;
+		printf("%s=%s\n", export_cmd_lst->name, export_cmd_lst->content);
+		export_cmd_lst = export_cmd_lst->next;
 	}
 	return (0);
 }
-
-int		export_var(t_lst *lst, t_env_lst *envlst)
+int		export_var(t_cmd_lst *lst, t_env_lst *envlst)
 {
 	char	*name;
 	char	*content;
@@ -97,7 +97,7 @@ int		export_var(t_lst *lst, t_env_lst *envlst)
 		while (var[i][j])
 			j++;
 		content = ft_substr(ft_strchr(var[i], '=') + 1, 0, j);
-		envlst->next = ft_lstnew_env(name, content);
+		envlst->next = ft_cmd_lstnew_env(name, content);
 		free(name);
 		free(content);
 		envlst = envlst->next;
@@ -105,7 +105,7 @@ int		export_var(t_lst *lst, t_env_lst *envlst)
 	return (0);
 }
 
-int		builtin_export(t_lst *lst, t_env_lst *envlst)
+int		builtin_export(t_cmd_lst *lst, t_env_lst *envlst)
 {
 	if (!lst->cmds[1])
 	{
@@ -116,3 +116,4 @@ int		builtin_export(t_lst *lst, t_env_lst *envlst)
 		export_var(&lst->cmds, envlst);
 	return (0);
 }
+*/
