@@ -37,7 +37,6 @@ int exec_ve(char **args)
 	pid = fork();
 	if (pid == 0)
 	{
-		printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 		if (execvp(args[0], args) == -1)
 		{
 			perror("BDSM");
@@ -67,7 +66,7 @@ void get_built_in (t_cmd_lst *lst, t_env_lst *envlst)
 	if (!lst)
 		return ;
 	j = -1;
-	// printf ("%s\n", lst->cmds[0]); // ok
+	//printf ("%s\n", lst->cmds[0]); // ok
 	while (lst->cmds[++j])
 	{
 		builtin = 0;

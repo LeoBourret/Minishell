@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:24:47 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 15:13:05 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/08 13:02:42 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cmd_lst	*ft_new_cmd_list(void)
 	new->cmds = NULL;
 	new->redir = NULL;
 	new->separator = NULL;
-	new->next = NULL;
+	//new->next = NULL;
 	return (new);
 }
 

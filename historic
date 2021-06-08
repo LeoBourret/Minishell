@@ -193,3 +193,21 @@ rm -rf q
 ls
 exit
 clear
+hello
+echo
+echo a
+echo yolo
+coucou
+cd ..
+ls
+exit
+w
+echo
+w
+echo 
+echo
+ls
+coucou
+./Minishell
+ls -a
+exit

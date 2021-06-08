@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/07 18:47:26 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/08 13:38:55 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,19 +208,17 @@ int		main(int ac, char **av, char **envp)
 
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
-	i = 0;
 	while (1)
 	{
 		lst = get_cmd(get_line(0), env_list); // ok
 		//printf("%s\n", lst->cmds[0]); // ok
-		printf ("%d\n", i);
-		if (lst->cmds[i] != NULL)
+		printf ("Maitre cryptobongo\n");
+		if (lst)
 		{
+			// printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 			get_built_in(lst, env_list);
-			printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 			//free_cmds(lst);
 		}
-		i++;
 	}
 	return (0);
 }

@@ -18,6 +18,7 @@ int		is_n(char *s)
 
 int		builtin_echo(t_cmd_lst *lst, t_env_lst *env)
 {
+
 	int	i;
 	int	option;
 
