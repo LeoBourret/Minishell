@@ -231,3 +231,8 @@ bash
 clear
 								
 git add .
+git commit -m "yo:"
+git commit -m "yo"
+make fclean
+make cleanlib
+git add .
