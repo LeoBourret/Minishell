@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/08 13:38:55 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:20:39 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,23 +202,32 @@ int		main(int ac, char **av, char **envp)
 	(void)av;
 	(void)envp;
 	lst = malloc (sizeof(t_cmd_lst) + 1);
-	lst->cmds = malloc (sizeof(char) + 1);
-	lst->redir = malloc (sizeof(t_redir) + 1);
-	lst->separator = malloc (sizeof(t_separator) + 1);
-
+	lst->cmds = ft_calloc (sizeof(char), 1);
+	lst->cmds = NULL;
+	lst->redir = ft_calloc (sizeof(t_redir), 1);
+	lst->redir = NULL;
+	lst->separator = ft_calloc (sizeof(t_separator), 1);
+	lst->separator = NULL;
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
 		lst = get_cmd(get_line(0), env_list); // ok
 		//printf("%s\n", lst->cmds[0]); // ok
-		printf ("Maitre cryptobongo\n");
+		// printf ("Maitre cryptobongo\n");
+		// // if (lst->redir->redir)
+		// // 	printf ("redir\n");
+		// if (lst)
+		// 	printf ("cmds\n");
+		// else
+		// 	printf ("what\n");
 		if (lst)
 		{
 			// printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 			get_built_in(lst, env_list);
 			//free_cmds(lst);
 		}
+
 	}
 	return (0);
-}
+} // faut mute les touches qu on a pas le droit de use genre TAB

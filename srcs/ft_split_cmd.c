@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/08 13:03:35 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:05:50 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 		return (NULL);
 	cmd_count = cmd_counter(str, separator);
 	lst = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
+	lst->redir = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
 	if (!lst)
 		return (NULL);
 	i = 0;
@@ -135,7 +136,13 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 	while (++j < cmd_count)
 	{
 		if (is_separator(str[i], "><"))
-			printf ("oui");
+		{
+			lst->redir->redir = which_redir(str);
+			i++;
+			lst->redir->arg = &str[i];
+			//printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
+			// printf ("%s\n", lst->redir->arg);
+		}
 			//lst->redir->redir = get_redir(&str[i]);
 		if (ft_isalpha(str[i]) == 1)
 			lst->cmds = ft_split_args(str, env);

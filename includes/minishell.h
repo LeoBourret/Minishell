@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/07 17:40:33 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/09 11:39:54 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_env_lst
 typedef struct	s_redir
 {
 	int		redir;
-	char	**arg;
+	char	*arg;
 	struct s_redir *next;
 }				t_redir;
 
