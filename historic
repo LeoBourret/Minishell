@@ -236,3 +236,5 @@ git commit -m "yo"
 make fclean
 make cleanlib
 git add .
+git commit -m "yo"
+git push
