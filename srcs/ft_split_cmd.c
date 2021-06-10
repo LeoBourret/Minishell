@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/09 12:05:50 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:24:32 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,9 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 		return (NULL);
 	cmd_count = cmd_counter(str, separator);
 	lst = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
-	lst->redir = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
+	lst->redir = NULL;
+	lst->cmds = NULL;
+	lst->separator = NULL;
 	if (!lst)
 		return (NULL);
 	i = 0;
@@ -137,17 +139,20 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 	{
 		if (is_separator(str[i], "><"))
 		{
+			lst->redir = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
 			lst->redir->redir = which_redir(str);
 			i++;
 			lst->redir->arg = &str[i];
-			//printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
-			// printf ("%s\n", lst->redir->arg);
 		}
-			//lst->redir->redir = get_redir(&str[i]);
-		if (ft_isalpha(str[i]) == 1)
+		else if (ft_isalpha(str[i]) == 1)
+		{
 			lst->cmds = ft_split_args(str, env);
-		else if (is_separator(str[i], separator))
+		}
+		else if (is_separator(str[i], ";|"))
+		{
+			lst->separator = malloc(sizeof(t_cmd_lst) * (cmd_count + 1));
 			lst->separator->separator = str[i];
+		}
 		else
 			printf("error\n");
 		if (j + 1 != cmd_count)
