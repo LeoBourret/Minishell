@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/02 19:42:22 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:32:57 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,30 +148,66 @@ int		args_counter(char *str)
 	return (count);
 }
 
-char	**ft_split_args(char *str, t_env_lst *env)
+char	*get_cmd_name(char *s)
+{
+	int		i;
+	int		len;
+	char	*cmd;
+
+	len = 0;
+	i = 0;
+	while (s[i] && is_space(s[i]))
+		i++;
+	while (s[i] && !is_space(s[i]))
+	{
+		len++;
+		i++;
+	}
+	cmd = malloc(sizeof(char) * (len + 1));
+	i = skip_space(s);
+	len = 0;
+	while (s[i] && !is_space(s[i]))
+	{
+		cmd[len] = s[i];
+		i++;
+		len++;
+	}
+	cmd[len] = '\0';
+	return (cmd);
+}
+
+void	ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env)
 {
 	char	**args;
+	char	*tmp;
 	int		args_count;
 	int		i;
 	int		j;
 
-	if (!str)
-		return (NULL);
+	if (how_many_redir(str) > 0)
+	{
+		tmp = get_redir(str, lst);
+		free(str);
+		str = tmp;
+	}
 	args_count = args_counter(str);
-	if (!(args = malloc(sizeof(char *) * (args_count + 1))))
-		return (NULL);
-	i = -1;
+	lst->args = malloc(sizeof(char *) * (args_count + 1));
+	i = 0;
 	j = 0;
+	while (is_space(str[j]) && str[j])
+			j++;
+		lst->cmd = get_cmd_name(&str[j]);
 	while (++i < args_count)
 	{
-		while (is_space(str[j]) && str[j])
+		while (str[j] && !is_space(str[j]))
 			j++;
-		args[i] = ft_strdup_space_sep(&str[j], env);
+		while (str[j] && is_space(str[j]))
+			j++;
+		lst->args[i - 1] = ft_strdup_space_sep(&str[j], env);
 		if (str[j] == '\'' || str[j] == '"')
 			j = get_to_next_quote(str, j);
 		while (!is_space(str[j]) && str[j])
 			j++;
 	}
-	args[i] = 0;
-	return (args);
+	lst->args[i - 1] = NULL;
 }

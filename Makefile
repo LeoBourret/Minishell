@@ -29,7 +29,10 @@ SRC_SRCS =	main.c \
 		ft_lstnew_env.c \
 		set_canonic.c \
 		manage_input.c \
-		historic.c
+		historic.c \
+		redir.c \
+		skip.c \
+		cmd_utils.c
 
 SRC = 	$(addprefix $(DIR_SRCS), $(SRC_SRCS)) \
 		$(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
@@ -47,7 +50,14 @@ $(NAME): lib $(OBJ)
 	@echo $(GRN)"[Minishell ready !]"
 	@echo $(END)
 
-lib: 
+sani: lib $(OBJ)
+	@echo $(YLW)"[Minishell compilation...]"
+	@$(CC) -g3 -O0 -fsanitize=address $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
+	@echo $(GRN)"[Minishell ready !]"
+	@echo $(END)
+
+
+lib:
 	@echo $(YLW)"[Libft compilation...]"
 	@make -C libft/
 	@echo $(GRN)"[Libft done !]"

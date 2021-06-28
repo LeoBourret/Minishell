@@ -261,3 +261,60 @@ ls
 l
 |
 ; t
+ls
+echo truc
+wesh
+ls
+exit
+sfasdfasdfadfasdfasdfasdf
+ls
+echo machin
+ls
+echo truc machin
+ls
+echo truc
+echo machin truc
+echo bidule chouette truc
+echo hello
+echo truc
+echo coucou
+echo truc
+echo truc ; echo machin
+echo truc
+echo truc machin
+echo machin truc
+echo truc
+echo zizi
+echo truc
+make
+echo truc
+echo machin
+echo truc
+ls
+echo truc machin
+echo truc > machin
+ls
+echo -nnnn lol
+echo truc
+echo -n truc
+ls
+echo -n truc
+machin
+echo -n truc
+lol
+echo -n truc
+echo -nnnnnnnnnnnn
+echo
+echo -n
+echo
+echo -n
+echo
+echo -n
+echo
+echo -n
+echo truc >machin
+echo eh >t
+echo truc >machin
+echo truc >machin >k
+echo truc >machin
+echo truc >machin >truc

@@ -6,11 +6,12 @@
 /*   By: lebourre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:40:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/04 17:00:20 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:31:54 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 
 int	how_many_redir(char *s)
 {
@@ -34,51 +35,6 @@ int	how_many_redir(char *s)
 	return (count);
 }
 
-char	*redir_dup(char *s)
-{
-	int		i;
-	int		len;
-	int		space;
-	char	*redir;
-
-	i = -1;
-	space = 1;
-	while (s[++i] && !(is_space(s[i]) && space == 1))
-	{
-		if (is_space(s[i]) && space == 1)
-		{
-			i += skip_space(&s[i]);
-			space = 0;
-		}
-		len++;
-	}
-	return (redir);
-}
-
-char	**get_redir(char *s)
-{
-	int		i;
-	int		j;
-	char	**redir;
-	int		redir_count;
-
-	i = -1;
-	redir_count = how_many_redir(s);
-	if (redir_count == 0)
-		return (NULL);
-	redir = malloc(sizeof(char *) * (redir_count + 1));
-	if (redir == NULL)
-		return (NULL);
-	j = -1;
-	while (++j < redir_count)
-	{
-		while (s[i] && !is_redir(s, i))
-			i++;
-		redir[j] = redir_dup(&s[i]);
-	}
-	return (redir);
-}
-
 int	which_redir(char *str)
 {
 	if (str[0] == '<')
@@ -91,3 +47,102 @@ int	which_redir(char *str)
 	else
 		return (0);
 }
+
+
+/*
+**REDIR_DUP
+**
+**Allocate a new redirection list element. Also store the redirection type in
+**new->redir and the file name in new->arg
+*/
+t_redir	*redir_dup(char *s)
+{
+	int			start;
+	int			len;
+	char		*redir;
+	t_redir		*new;
+
+	start = -1;
+	len = 0;
+	new = malloc(sizeof(t_redir));
+	new->redir = which_redir(s);
+	while (s[start] && (s[start] == '>' || s[start] == '<'))
+		start++;
+	start += skip_space(&s[start]);
+	len = start;
+	while (s[len] && !is_space(s[len]))
+		len++;
+	new->arg = ft_substr(s, start, len);
+	printf("redir = %s\n", new->arg);
+	new->next = NULL;
+	return (new);
+}
+
+/*SKIP_REDIR
+**
+**return the index of the character next to the end of a redirection file name
+*/
+int	skip_redir(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && (s[i] == '>' || s[i] == '<'))
+		i++;
+	if (i == 3 || s[i] == '\0')
+		return (-1);
+	while (s[i] && is_space(s[i]))
+		i++;
+	if (s[i] == '\0')
+		return (-1);
+	while (ft_isalnum(s[i]))
+		i++;
+	return (i);
+}
+
+/*
+**GET_REDIR
+**
+**New will store a string that cointain redirection inside without redirection
+**while allocating n list->redir with redir_dup and storing inside the structure
+**all the redirection information
+*/
+
+char	*get_redir(char *s, t_cmd_lst *lst)
+{
+	char	*new;
+	t_redir *tmp;
+	int		len;
+	int		i;
+
+	len = 0;
+	i = -1;
+	while (s[++i])
+	{
+		if (is_redir(s, i))
+			i += skip_redir(&s[i]);
+		len++;
+	}
+	new = malloc(sizeof(char) * (len + 1));
+	tmp = NULL;
+	i = -1;
+	len = 0;
+	while (s[++i])
+	{
+		if (is_redir(s, i))
+		{
+			//printf("lst = %p redir position = %p redir content = %p\n", lst, &lst->redir, lst->redir);
+			lst->redir = redir_dup(&s[i]);
+			if (tmp == NULL)
+				tmp = lst->redir;
+			lst->redir = lst->redir->next;
+			i += skip_redir(&s[i]);
+		}
+		new[len] = s[i];
+		len++;
+	}
+	lst->redir = tmp;
+	new[len] = '\0';
+	return (new);
+}
+

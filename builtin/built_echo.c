@@ -23,17 +23,17 @@ int		builtin_echo(t_cmd_lst *lst, t_env_lst *env)
 	int	option;
 
 	option = 0;
-	i = 1;
-	while ((is_n(lst->cmds[i])) == 1)
+	i = 0;
+	while (lst->args[i] && (is_n(lst->args[i])) == 1)
 		i++;
-	if (i > 1)
+	if (i > 0)
 		option = 1;
-	while (lst->cmds[i])
+	while (lst->args[i])
 	{
-		if (lst->cmds[i + 1])
-			printf("%s ", lst->cmds[i]);
+		if (lst->args[i + 1])
+			ft_putstr_fd(lst->args[i], 1);
 		else
-			printf("%s", lst->cmds[i]);
+			ft_putstr_fd(lst->args[i], 1);
 		i++;
 	}
 	if (option == 0)

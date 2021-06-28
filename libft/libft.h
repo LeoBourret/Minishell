@@ -6,7 +6,7 @@
 /*   By: lebourre <lebourre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:04:01 by lebourre          #+#    #+#             */
-/*   Updated: 2021/05/21 15:31:35 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/24 23:44:45 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int				ft_isprint(int c);
 size_t			ft_strlcat(char *dst, char const *src, size_t size);
 size_t			ft_strlcpy(char *dst, char const *src, size_t size);
 size_t			ft_strlen(char const *s);
+size_t			ft_whereis(const char *s, char *charset);
 char			*ft_strncpy(char *dest, const char *src, int n);
 char			*ft_strdup(const char *s);
 char			*ft_strchr(char const *s, int c);

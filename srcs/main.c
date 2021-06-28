@@ -6,12 +6,12 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/10 15:57:11 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/06/25 07:00:35 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
+/*
 void	free_cmds(t_cmd_lst *lst)
 {
 	int i;
@@ -30,7 +30,7 @@ void	free_cmds(t_cmd_lst *lst)
 		free(lst->cmds);
 	}
 }
-
+*/
 void	print_cmd(t_cmd_lst *lst)
 {
 	int i;
@@ -39,9 +39,9 @@ void	print_cmd(t_cmd_lst *lst)
 	if (!lst)
 		return ;
 	i = -1;
-	while (lst->cmds[++i])
+	while (lst)
 	{
-		printf("> commande avec ses args respectif:\n> %s\n>\n", lst->cmds[i]);
+		printf("> commande avec ses args respectif:\n> %s\n>\n", lst->cmd);
 		/*
 		j = 0;
 		while (lst->cmds[++j])
@@ -51,7 +51,7 @@ void	print_cmd(t_cmd_lst *lst)
 	}
 }
 
-t_cmd_lst	*get_cmd(char *line, t_env_lst *env)
+t_cmd_lst	*lst_cmd(char *line, t_env_lst *env)
 {
 	t_cmd_lst	*lst;
 	int		fd;
@@ -201,32 +201,26 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	(void)envp;
-	lst = malloc (sizeof(t_cmd_lst) + 1);
-	lst->redir = NULL;
-	lst->cmds = NULL;
-	lst->separator = NULL;
+	lst = ft_new_cmd_list(NULL);
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
-		lst = get_cmd(get_line(0), env_list); // ok
+		lst = lst_cmd(get_line(0), env_list); // ok
 		//printf("%s\n", lst->cmds[0]); // ok
 		// printf ("Maitre cryptobongo\n");
-		if (lst->redir)
+/*		if (lst->redir)
 		 	printf ("redir\n");
 		else if (lst->cmds)
 			printf ("cmds\n");
 		else if (lst->separator)
-			printf ("what\n");
-		/*
+			printf ("what\n");*/
 		if (lst)
 		{
 			// printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 			get_built_in(lst, env_list);
 			//free_cmds(lst);
 		}
-		*/
-
 	}
 	return (0);
 } // faut mute les touches qu on a pas le droit de use genre TAB
