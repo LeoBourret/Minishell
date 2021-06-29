@@ -318,3 +318,10 @@ echo truc >machin
 echo truc >machin >k
 echo truc >machin
 echo truc >machin >truc
+echo truc machin
+ls
+echo truc >machin
+echo  truc machin
+echo truc >machin
+cat machin
+ls

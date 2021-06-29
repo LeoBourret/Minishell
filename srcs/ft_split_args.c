@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/28 18:32:57 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/06/29 18:36:02 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,8 @@ void	ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env)
 	i = 0;
 	j = 0;
 	while (is_space(str[j]) && str[j])
-			j++;
-		lst->cmd = get_cmd_name(&str[j]);
+		j++;
+	lst->cmd = get_cmd_name(&str[j]);
 	while (++i < args_count)
 	{
 		while (str[j] && !is_space(str[j]))

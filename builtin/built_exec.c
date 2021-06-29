@@ -10,14 +10,14 @@ char	*builtin_list[] = {
 	"unset"
 };
 
-int exec_built_in (t_cmd_lst *lst, t_env_lst *envlst)
+int exec_built_in(t_cmd_lst *lst, t_env_lst *envlst, int fd)
 {
 	if (ft_strcmp(lst->cmd,"echo") == 0)
-		return builtin_echo(lst, envlst);
+		return builtin_echo(lst, envlst, fd);
 	else if (ft_strcmp(lst->cmd,"cd") == 0)
 		return builtin_cd(lst, envlst);
 	else if (ft_strcmp(lst->cmd,"exit") == 0)
-		return builtin_exit(lst);	
+		return builtin_exit(lst);
 	else if (ft_strcmp(lst->cmd,"pwd") == 0)
 		return builtin_pwd(lst, envlst);
 	else if (ft_strcmp(lst->cmd,"env") == 0)
@@ -84,16 +84,31 @@ int exec_ve(t_cmd_lst *lst)
 	return 1;
 }
 
-void get_built_in (t_cmd_lst *lst, t_env_lst *envlst)
+int	get_fd(t_cmd_lst *lst)
 {
-	int i;
-	int j;
-	int builtin;
+	int	fd;
 
+	fd = 1;
+	if (lst->redir == NULL)
+		return (fd);
+	else if (lst->redir->redir == 2)
+		fd = open(lst->redir->arg, O_WRONLY | O_TRUNC);
+	else if (lst->redir->redir == 3)
+		fd = open(lst->redir->arg, O_WRONLY | O_APPEND);
+	return (fd);
+}
+
+void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
+{
+	int	i;
+	int	j;
+	int	builtin;
+	int	fd;
+
+	fd = get_fd(lst);
 	if (!lst)
 		return ;
 	j = -1;
-	//printf ("%s\n", lst->cmds[0]); // ok
 	while (lst)
 	{
 		builtin = 0;
@@ -106,11 +121,13 @@ void get_built_in (t_cmd_lst *lst, t_env_lst *envlst)
 			}
 		if (builtin == 1)
 		{
-			exec_built_in(lst, envlst);
+			exec_built_in(lst, envlst, fd);
 		}
 		else
 			exec_ve(lst);
 		break ;
 		lst = lst->next;
 	}
+	if (fd != 1)
+		close(fd);
 }

@@ -16,9 +16,8 @@ int		is_n(char *s)
 	return (0);
 }
 
-int		builtin_echo(t_cmd_lst *lst, t_env_lst *env)
+int		builtin_echo(t_cmd_lst *lst, t_env_lst *env, int fd)
 {
-
 	int	i;
 	int	option;
 
@@ -31,9 +30,12 @@ int		builtin_echo(t_cmd_lst *lst, t_env_lst *env)
 	while (lst->args[i])
 	{
 		if (lst->args[i + 1])
-			ft_putstr_fd(lst->args[i], 1);
+		{
+			ft_putstr_fd(lst->args[i], fd);
+			ft_putchar_fd(' ', fd);
+		}
 		else
-			ft_putstr_fd(lst->args[i], 1);
+			ft_putstr_fd(lst->args[i], fd);
 		i++;
 	}
 	if (option == 0)
