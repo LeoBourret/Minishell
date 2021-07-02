@@ -92,7 +92,15 @@ int	get_fd(t_cmd_lst *lst)
 	if (lst->redir == NULL)
 		return (fd);
 	else if (lst->redir->redir == 2)
-		fd = open(lst->redir->arg, O_WRONLY | O_TRUNC);
+	{
+		//fd = creat(lst->redir->arg, 0644);
+		printf ("AARRRRGGGG = %s\n", lst->redir->arg);
+		fd = open(lst->redir->arg, O_WRONLY | O_TRUNC | O_CREAT);
+		printf ("coucou\n");
+		close(fd);
+		dup2(fd, STDOUT_FILENO);
+		lst->redir->redir = 0;
+	}
 	else if (lst->redir->redir == 3)
 		fd = open(lst->redir->arg, O_WRONLY | O_APPEND);
 	return (fd);
@@ -113,6 +121,8 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 	{
 		builtin = 0;
 		i = -1;
+		if (lst->redir != 0)
+			redir_type(lst);
 		while (builtin_list[++i])
 			if (ft_strcmp(builtin_list[i], lst->cmd) == 0)
 			{

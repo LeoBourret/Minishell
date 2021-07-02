@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/29 20:13:01 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/02 02:03:20 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void			ft_env_remove_if(t_env_lst **begin, void *data, int (*cmp)());
 **REDIRECTION FUNCTIONS
 **
 */
+void    redir_type(t_cmd_lst *lst);
 char			*get_redir(char *s, t_cmd_lst *lst);
 int				how_many_redir(char *s);
 /*

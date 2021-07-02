@@ -30,6 +30,7 @@ SRC_SRCS =	main.c \
 		set_canonic.c \
 		manage_input.c \
 		historic.c \
+		parse_redir.c \
 		redir.c \
 		skip.c \
 		cmd_utils.c
