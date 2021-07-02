@@ -6,7 +6,7 @@
 /*   By: lebourre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:40:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/29 18:47:51 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/02 03:02:38 by lebourre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_redir	*redir_dup(char *s)
 	char		*redir;
 	t_redir		*new;
 
-	start = -1;
+	start = 0;
 	len = 0;
 	new = malloc(sizeof(t_redir));
 	new->redir = which_redir(s);
@@ -72,8 +72,8 @@ t_redir	*redir_dup(char *s)
 	len = start;
 	while (s[len] && !is_space(s[len]))
 		len++;
-	new->arg = ft_substr(s, start, len);
-	printf("redir = %s\n", new->arg);
+	new->arg = ft_substr(s, start, len - 2);
+	printf("redir = %s.\n", new->arg);
 	new->next = NULL;
 	return (new);
 }

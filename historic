@@ -356,3 +356,8 @@ exit
 echo a > a
 ls
 echo a > a
+echo > truc lol
+echo > truc
+echo > truc 
+echo > t
+echo > 
