@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/02 02:03:20 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/08 17:11:35 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_cmd_lst
 	char				sep;
 	struct s_cmd_lst	*next;
 	struct s_cmd_lst	*prev;
+	int					*fd;
 }				t_cmd_lst;
 
 typedef struct s_fct_params

@@ -6,12 +6,12 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/02 01:52:37 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/08 13:42:43 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-/*
+
 void	free_cmds(t_cmd_lst *lst)
 {
 	int i;
@@ -20,17 +20,14 @@ void	free_cmds(t_cmd_lst *lst)
 	if (lst)
 	{
 		i = -1;
-		while (lst->cmds)
+		while (lst->cmd)
 		{
-			j = -1;
-			while (lst->cmds[++j])
-				free(lst->cmds[j]);
-			free(lst->cmds);
+			free(lst->cmd);
 		}
-		free(lst->cmds);
+		free(lst->cmd);
 	}
 }
-*/
+
 void	print_cmd(t_cmd_lst *lst)
 {
 	int i;
@@ -88,7 +85,7 @@ char	*get_line(int up)
 	set_term_ncan();
 	len = 0;
 	cur_pos = 0;
-	ft_putstr_fd("Brain Diff shell > ", 1);
+	ft_putstr_fd("Brain Diff shell : ", 1);
 	line = malloc(sizeof(char));
 	*line = '\0';
 	while (1)
@@ -197,6 +194,7 @@ int		main(int ac, char **av, char **envp)
 	t_env_lst *env_list;
 	t_cmd_lst *lst;
 	int i;
+	pid_t	pid;
 
 	(void)ac;
 	(void)av;
@@ -207,19 +205,10 @@ int		main(int ac, char **av, char **envp)
 	while (1)
 	{
 		lst = lst_cmd(get_line(0), env_list); // ok
-		//printf("%s\n", lst->cmds[0]); // ok
-		// printf ("Maitre cryptobongo\n");
-/*		if (lst->redir)
-		 	printf ("redir\n");
-		else if (lst->cmds)
-			printf ("cmds\n");
-		else if (lst->separator)
-			printf ("what\n");*/
 		if (lst)
 		{
-			// printf ("\n--------- CECI EST UN PRINTF !! ---------\n\n");
 			get_built_in(lst, env_list);
-			//free_cmds(lst);
+			free(lst);
 		}
 	}
 	return (0);

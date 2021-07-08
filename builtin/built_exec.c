@@ -26,6 +26,7 @@ int exec_built_in(t_cmd_lst *lst, t_env_lst *envlst, int fd)
 		return builtin_unset(lst, envlst);
 	//else if (ft_strcmp(lst->cmds[0],"export") == 0)
 	//	return builtin_export(lst, envlst);
+	close (fd);
 	return 0;
 }
 
@@ -50,6 +51,31 @@ char	**join_args(char *s, char **args)
 	}
 	new[i] = NULL;
 	return (new);
+}
+
+int	get_fd(t_cmd_lst *lst)
+{
+	int fd;
+	int current_out;
+	int	pid = fork();
+
+	if (lst->redir->redir == 2) // >
+	{
+		fd = open(lst->redir->arg, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fd, 1);
+		lst->redir->redir = 0;
+		current_out = dup(1);
+		// wpid = waitpid(pid, &status, WUNTRACED);
+		// while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		// return (fd);
+	}
+	else if (lst->redir->redir == 3) // >>
+		printf ("REDIRE 3 \n");
+	else if (lst->redir->redir == 1) // <
+		printf ("REDIRE 1 \n");
+	else if (pid == -1)
+		perror("fork");
+	return (fd);
 }
 
 int exec_ve(t_cmd_lst *lst)
@@ -84,36 +110,19 @@ int exec_ve(t_cmd_lst *lst)
 	return 1;
 }
 
-int	get_fd(t_cmd_lst *lst)
-{
-	int	fd;
 
-	fd = 1;
-	if (lst->redir == NULL)
-		return (fd);
-	else if (lst->redir->redir == 2)
-	{
-		//fd = creat(lst->redir->arg, 0644);
-		printf ("AARRRRGGGG = %s\n", lst->redir->arg);
-		fd = open(lst->redir->arg, O_WRONLY | O_TRUNC | O_CREAT);
-		printf ("coucou\n");
-		close(fd);
-		dup2(fd, STDOUT_FILENO);
-		lst->redir->redir = 0;
-	}
-	else if (lst->redir->redir == 3)
-		fd = open(lst->redir->arg, O_WRONLY | O_APPEND);
-	return (fd);
-}
 
 void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 {
+	int fd;
 	int	i;
 	int	j;
 	int	builtin;
-	int	fd;
+	pid_t	pid;
 
-	fd = get_fd(lst);
+	if (lst->redir != 0)
+		fd = get_fd(lst);
+	close (fd);
 	if (!lst)
 		return ;
 	j = -1;
@@ -121,8 +130,6 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 	{
 		builtin = 0;
 		i = -1;
-		if (lst->redir != 0)
-			redir_type(lst);
 		while (builtin_list[++i])
 			if (ft_strcmp(builtin_list[i], lst->cmd) == 0)
 			{
@@ -132,6 +139,7 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 		if (builtin == 1)
 		{
 			exec_built_in(lst, envlst, fd);
+			close (fd);
 		}
 		else
 			exec_ve(lst);

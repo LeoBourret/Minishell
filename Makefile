@@ -31,7 +31,6 @@ SRC_SRCS =	main.c \
 		manage_input.c \
 		historic.c \
 		parse_redir.c \
-		redir.c \
 		skip.c \
 		cmd_utils.c
 
@@ -46,34 +45,35 @@ all: $(NAME)
 
 
 $(NAME): lib $(OBJ) 
-	@echo $(YLW)"[Minishell compilation...]"
+	@echo $(YLW)"[Minishell compilation...]\r"
 	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
-	@echo $(GRN)"[Minishell ready !]"
+	@echo $(GRN)"[Minishell ready !]\r"
 	@echo $(END)
 
 sani: lib $(OBJ)
-	@echo $(YLW)"[Minishell compilation...]"
+	@echo $(YLW)"[Minishell compilation...]\r"
 	@$(CC) -g3 -O0 -fsanitize=address $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
-	@echo $(GRN)"[Minishell ready !]"
+	@echo $(GRN)"[Minishell ready !]\r"
 	@echo $(END)
 
 
 lib:
-	@echo $(YLW)"[Libft compilation...]"
+	@echo $(YLW)[Libft compilation...]\r"
 	@make -C libft/
-	@echo $(GRN)"[Libft done !]"
+	@echo $(GRN)"[Libft done !]\r"
 	@echo $(END)
 
 clean:
-	@echo $(RED)"[Minishell remove...]"
+	@echo $(RED)"[Minishell remove...]\r"
 	@echo $(END)
 	@$(RM) $(OBJ)
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) a
 
 cleanlib:
-	@echo $(RED)"[Libft remove...]"
+	@echo $(RED)"[Libft remove...]\r"
 	@echo $(END)
 	@make fclean -C libft
 
