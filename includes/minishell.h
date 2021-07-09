@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/08 17:11:35 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:51:16 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int				minishell_cd(t_fct_params *params);
 int				minishell_echo(t_fct_params *params);
 int				minishell_pwd(t_fct_params *params);
 int				exec_built_in (t_cmd_lst *lst, t_env_lst *envlst, int fd);
-int				exec_ve(t_cmd_lst *lst);
+int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst);
 int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 char			*del_char(char *src, int pos);
 void			clear_and_print(int len, char *s, int pos);

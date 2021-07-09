@@ -53,76 +53,78 @@ char	**join_args(char *s, char **args)
 	return (new);
 }
 
-int	get_fd(t_cmd_lst *lst)
+void	redir(t_cmd_lst *lst)
 {
-	int fd;
-	int current_out;
 	int	pid = fork();
+	int status;
+	int inout = lst->redir->redir;
+	char *inoutput = lst->redir->arg;
 
-	if (lst->redir->redir == 2) // >
-	{
-		fd = open(lst->redir->arg, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		dup2(fd, 1);
-		lst->redir->redir = 0;
-		current_out = dup(1);
-		// wpid = waitpid(pid, &status, WUNTRACED);
-		// while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		// return (fd);
-	}
-	else if (lst->redir->redir == 3) // >>
-		printf ("REDIRE 3 \n");
-	else if (lst->redir->redir == 1) // <
-		printf ("REDIRE 1 \n");
-	else if (pid == -1)
+	if (pid < 0)
 		perror("fork");
-	return (fd);
+	else if (pid == 0)
+	{
+		if (inout == 1) // <
+		{
+			int fd0 = open(inoutput, O_RDONLY);
+			dup2(fd0, 0);
+			close(fd0);
+		}
+		else if (inout == 2) // >
+		{
+			int fd1 = open(inoutput, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			printf("fd = %d\n", fd1);
+			dup2(fd1, 1);
+			close(fd1);
+		}		
+		else if (inout == 3) // >>
+		{
+			int fd1 = open(inoutput, O_CREAT | O_RDWR | O_APPEND, 0644);
+			dup2(fd1, 1);
+			close(fd1);
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		exit(0);
+	}
 }
 
-int exec_ve(t_cmd_lst *lst)
+int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst)
 {
 	pid_t	pid;
 	pid_t	wpid;
 	int		status;
 	char	**args;
-
 	pid = fork();
 	args = join_args(lst->cmd, lst->args);
-	if (pid == 0)
-	{
-		if (execvp(lst->cmd, args) == -1)
-		{
-			perror("BDSM");
-		}
-		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
+	if (pid < 0)
 		perror("BDSM");
+	else if (pid == 0)
+	{
+		if (execve(lst->cmd, args, 0) == -1) // a changer pour get l'env sous forme char**
+			perror("BDSM");
 	}
 	else
 	{
-		do
-		{
-			wpid = waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		waitpid(pid, &status, 0);
 	}
 	free(args);
 	return 1;
 }
 
-
-
 void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 {
-	int fd;
+	int fd = 1;
 	int	i;
 	int	j;
 	int	builtin;
+	int fd0 = dup(0);
+	int fd1 = dup(1);
 	pid_t	pid;
-
 	if (lst->redir != 0)
-		fd = get_fd(lst);
-	close (fd);
+		redir(lst);
 	if (!lst)
 		return ;
 	j = -1;
@@ -138,11 +140,17 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 			}
 		if (builtin == 1)
 		{
-			exec_built_in(lst, envlst, fd);
-			close (fd);
+			exec_built_in(lst, envlst, 1);
+
 		}
 		else
-			exec_ve(lst);
+		{
+			exec_ve(lst, builtin, envlst);
+		}
+		dup2(fd0, 0);
+		close(fd0);
+		dup2(fd1, 1);
+		close(fd1);
 		break ;
 		lst = lst->next;
 	}

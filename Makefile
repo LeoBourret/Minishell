@@ -45,27 +45,27 @@ all: $(NAME)
 
 
 $(NAME): lib $(OBJ) 
-	@echo $(YLW)"[Minishell compilation...]\r"
+	@printf $(YLW)"[Minishell compilation...]%-30s\r"
 	@$(CC) $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
-	@echo $(GRN)"[Minishell ready !]\r"
-	@echo $(END)
+	@printf $(GRN)"[Minishell ready !!]%-30s\n"
+	@printf $(END)
 
 sani: lib $(OBJ)
-	@echo $(YLW)"[Minishell compilation...]\r"
+	@printf $(YLW)"[Minishell compilation...]%-30s\r"
 	@$(CC) -g3 -O0 -fsanitize=address $(OBJ) -I libft/ -lft -L libft/ -o $(NAME)
-	@echo $(GRN)"[Minishell ready !]\r"
-	@echo $(END)
+	@printf $(GRN)"[Minishell ready !]\n"
+	@printf $(END)
 
 
 lib:
-	@echo $(YLW)[Libft compilation...]\r"
+	@printf $(YLW)"[Libft compilation...]%-30s\r"
 	@make -C libft/
-	@echo $(GRN)"[Libft done !]\r"
-	@echo $(END)
+	@printf $(GRN)"[Libft done !]%-30s\r"
+	@printf $(END)
 
 clean:
-	@echo $(RED)"[Minishell remove...]\r"
-	@echo $(END)
+	@printf $(RED)"[Minishell remove...]%-30s\r"
+	@printf $(END)
 	@$(RM) $(OBJ)
 
 fclean: clean
@@ -73,10 +73,14 @@ fclean: clean
 	@$(RM) a
 
 cleanlib:
-	@echo $(RED)"[Libft remove...]\r"
-	@echo $(END)
+	@printf $(RED)"[Libft remove...]%-30s\r"
+	@printf $(END)
 	@make fclean -C libft
 
 re: fclean all
 
+go : re
+	@printf $(GRN)"[Launch Minishell...]\n"
+	@printf $(END)
+	@./minishell
 .SILENT:
