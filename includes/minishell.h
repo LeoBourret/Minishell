@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/12 11:30:32 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:55:17 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
+
+# define TRUE 1
+# define FALSE 0
+
+// colors : +10 for background color
+
+# define ZERO "\033[0m"
+# define RED "\033[1;31m"
+# define GRN "\033[1;32m"
+# define YLW "\033[1;33m"
+# define BLU "\033[1;34m"
+# define MAG "\033[1;35m"
+# define CYAN "\033[1;36m"
+
 
 typedef struct s_env_lst
 {

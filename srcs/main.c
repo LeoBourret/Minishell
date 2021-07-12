@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/12 13:29:05 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:59:56 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*get_line(int up)
 	set_term_ncan();
 	len = 0;
 	cur_pos = 0;
-	ft_putstr_fd("Brain Diff shell : ", 1);
+	ft_putstr_fd(BLU "\u1405 " ZERO, 1);
 	line = malloc(sizeof(char));
 	*line = '\0';
 	while (1)
@@ -179,7 +179,7 @@ buf, ft_substr(line, cur_pos, ft_strlen(line) - cur_pos));
 //		printf("line = %s len = %lu\n", line, ft_strlen(line));
 	}
 	set_term_can(term);
-	printf("line = %s\n", line);
+	printf(YLW "line =" ZERO " %s\n", line);
 	return (line);
 }
 
