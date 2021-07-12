@@ -737,3 +737,175 @@ exit
 /bin/pwd > a
 /bin/cat < a
 exit
+ls
+bin/ls 
+/bin/ls
+/bin/clear
+/bin/clear/
+clear
+exit
+ls
+l
+ls
+pwd
+ls
+exit
+exi
+exit
+ls
+/bin/zsh/ls
+/bin/ls
+ls
+exit
+ls
+echo a
+ls
+exit
+echo a > a
+cat a
+rm a
+ls
+exit
+ls
+env
+env > a
+ls
+pwd
+exit
+ks
+ls
+ps
+ls
+ls * */*
+ls *
+ls
+exit
+ls > a
+echo a b c
+ls
+ls > a
+exit
+ls
+ls *
+ls * /*
+ls * */*
+ls a b c
+ls
+ls a b c
+ls > a
+exit
+ls
+ls > a
+ls a b c
+ls
+ls a b c
+ls a bc c
+ls
+ls a b c
+ls
+ls a b c
+ls
+ls a bc 
+ls a b c
+ls
+ls -la
+exit
+ls
+ls -la
+make re
+ls
+ls -la
+ls | ls
+ls > 1
+ls
+cat 1
+sl
+> 1 ls
+ls -la
+cat 1
+rm 1
+1 > ls
+ls
+>1 ls
+> 1 ls
+rm 1
+> 1 ls
+ls
+cat 1
+> 1 echo ok 
+cat 1
+env
+cd /usr/local/bin
+ls
+bash
+asdkjfha
+sadjghsa
+man execve
+ls
+ls -la
+/bin/ls
+ls
+/bin/ls
+ls
+/bin/ls
+ls
+/bin/ls
+ls
+exit
+ls
+ls ; ls
+ls
+cd ..
+ls
+cat 1
+ls > 1
+ls
+cat 1
+rm 1
+ls
+rm ls
+ls
+clear
+ls
+color
+color red
+colorme re
+cclear
+clear
+ls
+echo a > a
+ls
+cat a
+ls
+exit
+ls
+exit
+ls > a
+exit
+ls > a
+cat a
+exit
+lss
+exit
+ls
+touch tamer
+ls
+rm tamer
+ls -la
+ls -l
+touch -t 06202144 tamer
+ls
+ls -l
+rm tamer
+touch tamer
+chmod 777 tamer
+ls -l
+ln tamer2
+ls -l
+rm tamer
+make go
+./minishell
+exit
+make fclean
+make cleanlib
+git add .

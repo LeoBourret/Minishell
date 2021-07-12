@@ -91,30 +91,82 @@ void	redir(t_cmd_lst *lst)
 	}
 }
 
-int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst)
+char **get_envchar(t_cmd_lst *lst, t_env_lst *envlst)
+{
+	char **str;
+	int i = 0;
+	str = malloc (1000);
+	while (envlst)
+	{
+		str[i] = ft_strjoin(envlst->name, "=");
+		str[i] = ft_strjoin(str[i], envlst->content);
+		i++;
+		envlst = envlst->next;
+	}
+	// print_point_char(str);
+	return str;
+}
+
+char *get_env_by_name(t_cmd_lst *lst, t_env_lst *envlst, char *name)
+{
+	while (envlst)
+	{
+		if (ft_strcmp(envlst->name, name) == 0)
+			return (envlst->content);
+		envlst = envlst->next;
+	}
+	return 0;
+}
+
+int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 {
 	pid_t	pid;
 	pid_t	wpid;
 	int		status;
 	char	**args;
+	char	**str;
 	pid = fork();
+	char **path;
+	int i = 0;
+	int err;
+
+	err = 1;
+
+	path = ft_split(get_env_by_name(lst, envlst, "PATH"), ':');
+	if (!path)
+		return (1);
 	args = join_args(lst->cmd, lst->args);
+	if (pid == 0)
+	{
+		if (execve(lst->cmd, args, envp) == 0)
+		{
+			err = 0;
+			return (1);
+		}
+	}
+	while (path[i])
+	{
+	char *cmd = ft_strjoin(path[i], "/");
+	cmd = ft_strjoin(cmd, lst->cmd);
+	args = join_args(cmd, lst->args);
 	if (pid < 0)
 		perror("BDSM");
 	else if (pid == 0)
 	{
-		if (execve(lst->cmd, args, 0) == -1) // a changer pour get l'env sous forme char**
-			perror("BDSM");
+		if (execve(cmd, args, envp) == 0)
+			err = 0;
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
 	}
+	i++;
+	}
 	free(args);
 	return 1;
 }
 
-void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
+void get_built_in(t_cmd_lst *lst, t_env_lst *envlst, char **envp)
 {
 	int fd = 1;
 	int	i;
@@ -141,11 +193,10 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst)
 		if (builtin == 1)
 		{
 			exec_built_in(lst, envlst, 1);
-
 		}
 		else
 		{
-			exec_ve(lst, builtin, envlst);
+			exec_ve(lst, builtin, envlst, envp);
 		}
 		dup2(fd0, 0);
 		close(fd0);

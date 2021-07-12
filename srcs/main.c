@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/08 13:42:43 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/12 13:29:05 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ void	print_cmd(t_cmd_lst *lst)
 	while (lst)
 	{
 		printf("> commande avec ses args respectif:\n> %s\n>\n", lst->cmd);
-		/*
-		j = 0;
-		while (lst->cmds[++j])
-			printf("> %s\n", lst->cmds[j]);
-		write(2, ">\n", 2);
-		*/
 	}
 }
 
@@ -189,6 +183,14 @@ buf, ft_substr(line, cur_pos, ft_strlen(line) - cur_pos));
 	return (line);
 }
 
+
+void print_point_char(char **str)
+{
+	int i = -1;
+	while (str[++i])
+		printf("%s\n", str[i]);
+}
+
 int		main(int ac, char **av, char **envp)
 {
 	t_env_lst *env_list;
@@ -207,7 +209,7 @@ int		main(int ac, char **av, char **envp)
 		lst = lst_cmd(get_line(0), env_list); // ok
 		if (lst)
 		{
-			get_built_in(lst, env_list);
+			get_built_in(lst, env_list, envp);
 			free(lst);
 		}
 	}
