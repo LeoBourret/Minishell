@@ -1,0 +1,9 @@
+Makefile
+README.md
+b
+builtin
+historic
+includes
+libft
+minishell
+srcs

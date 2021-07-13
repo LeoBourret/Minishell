@@ -53,9 +53,16 @@ char	**join_args(char *s, char **args)
 	return (new);
 }
 
+fork_child(int in, int out, int fd_to_close)
+{
+	
+}
+
 void	redir(t_cmd_lst *lst)
 {
 	int	pid = fork();
+	int fd0;
+	int fd1;
 	int status;
 	int inout = lst->redir->redir;
 	char *inoutput = lst->redir->arg;
@@ -66,20 +73,20 @@ void	redir(t_cmd_lst *lst)
 	{
 		if (inout == 1) // <
 		{
-			int fd0 = open(inoutput, O_RDONLY);
+			fd0 = open(inoutput, O_RDONLY);
 			dup2(fd0, 0);
 			close(fd0);
 		}
 		else if (inout == 2) // >
 		{
-			int fd1 = open(inoutput, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			fd1 = open(inoutput, O_CREAT | O_RDWR | O_TRUNC, 0644);
 			printf("fd = %d\n", fd1);
 			dup2(fd1, 1);
 			close(fd1);
 		}		
 		else if (inout == 3) // >>
 		{
-			int fd1 = open(inoutput, O_CREAT | O_RDWR | O_APPEND, 0644);
+			fd1 = open(inoutput, O_CREAT | O_RDWR | O_APPEND, 0644);
 			dup2(fd1, 1);
 			close(fd1);
 		}
@@ -138,10 +145,9 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 	args = join_args(lst->cmd, lst->args);
 	if (pid == 0)
 	{
-		if (execve(lst->cmd, args, envp) == 0)
+		if (execve(lst->cmd, args, envp) == -1)
 		{
 			err = 0;
-			return (1);
 		}
 	}
 	while (path[i])
@@ -153,7 +159,7 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 		perror("BDSM");
 	else if (pid == 0)
 	{
-		if (execve(cmd, args, envp) == 0)
+		if (execve(cmd, args, envp) == -1)
 			err = 0;
 	}
 	else
@@ -162,6 +168,8 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 	}
 	i++;
 	}
+	if (err == 0)
+		exit(0);
 	free(args);
 	return 1;
 }
@@ -175,8 +183,10 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst, char **envp)
 	int fd0 = dup(0);
 	int fd1 = dup(1);
 	pid_t	pid;
-	if (lst->redir != 0)
+	if (lst->redir != NULL)
 		redir(lst);
+	if (lst->sep == '|')
+		ft_tuyo(fd0, fd1);
 	if (!lst)
 		return ;
 	j = -1;
@@ -187,10 +197,10 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst, char **envp)
 		while (builtin_list[++i])
 			if (ft_strcmp(builtin_list[i], lst->cmd) == 0)
 			{
-				builtin = 1;
+				builtin = TRUE;
 				break ;
 			}
-		if (builtin == 1)
+		if (builtin == TRUE)
 		{
 			exec_built_in(lst, envlst, 1);
 		}

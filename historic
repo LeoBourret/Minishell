@@ -931,3 +931,31 @@ ls
 clear
 ls
 exit
+ls
+lssss
+ls
+exit
+ls
+lssss
+exit
+echo j'aime les nibards
+ls
+ls | grep 'M'
+exit
+ls | grep ''
+ls | grep
+ls | grep " "
+ls |
+ls | cat
+ls | cat historic
+cat historic | wc
+wc
+ls | echo a
+exi
+exit
+ls | wc
+ls 
+ls > a
+cat a
+wc a
+ls > b cat < b
