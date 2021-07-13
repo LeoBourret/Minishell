@@ -959,3 +959,21 @@ ls > a
 cat a
 wc a
 ls > b cat < b
+ks
+ls
+exit
+rm b
+ls
+ls > b
+cat b
+rm b
+ls
+mkdir c
+cd c
+ls
+mkdir c
+cd c
+ls
+ls | cat
+ls
+git add .

@@ -1,10 +1,10 @@
-"ls>a" a fix
-";" a remettre
-pipe en cour :
-http://www.zeitoun.net/articles/communication-par-tuyau/start
-http://www.zeitoun.net/_media/articles/communication-par-tuyau/stdxxx_2.png
-http://www.rozmichelle.com/pipes-forks-dups/
-https://tldp.org/LDP/lpg/node11.html
+"ls>a" a fix\n
+";" a remettre\n
+pipe en cour :\n
+http://www.zeitoun.net/articles/communication-par-tuyau/start\n
+http://www.zeitoun.net/_media/articles/communication-par-tuyau/stdxxx_2.png\n
+http://www.rozmichelle.com/pipes-forks-dups/\n
+https://tldp.org/LDP/lpg/node11.html\n
 
 tu peux faire un wrapper de fork fork_child(int in, int out, int fd_to_close) qui gere tous les cas de fork a faire (que ca soit pipe ou commande normale)
 Pour une commande normale tu fais fork_child(STDIN_FILENO, STDOUT_FILENO, -1 (rien a close))
