@@ -1,6 +1,23 @@
-"ls>a" a fix\n
+## Todo :
 
-";" a remettre\n
+- [ ] builtin
+
+- [x] parsing
+
+- [x] exec
+
+- [x] redir
+
+- [ ] pipe
+
+- [ ] gestions d'erreurs
+
+
+## ToFix :
+
+- [ ] "ls>a" a fix\n
+
+- [ ] ";" a remettre\n
 
 ## Pipe en cour :
 
