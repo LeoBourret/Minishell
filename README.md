@@ -1,4 +1,7 @@
-## Todo :
+# Minishell :
+
+
+## ToDo :
 
 - [ ] builtin
 
@@ -19,15 +22,17 @@
 
 - [ ] ";" a remettre\n
 
-## Pipe en cour :
+## Work :
 
-[link 1](http://www.zeitoun.net/articles/communication-par-tuyau/start\n)
+### Pipe :
 
-[link 2](http://www.zeitoun.net/_media/articles/communication-par-tuyau/stdxxx_2.png\n)
+- [Link 1](http://www.zeitoun.net/articles/communication-par-tuyau/start\n)
 
-[link 3](http://www.rozmichelle.com/pipes-forks-dups/\n)
+- [Link 2](http://www.zeitoun.net/_media/articles/communication-par-tuyau/stdxxx_2.png\n)
 
-[link 4](https://tldp.org/LDP/lpg/node11.html\n)
+- [Link 3](http://www.rozmichelle.com/pipes-forks-dups/\n)
+
+- [Link 4](https://tldp.org/LDP/lpg/node11.html\n)
 
 Tu peux faire un wrapper de fork fork_child(int in, int out, int fd_to_close) qui gere tous les cas de fork a faire (que ca soit pipe ou commande normale)
 
