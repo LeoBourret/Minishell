@@ -1014,3 +1014,14 @@ ls ;
 ls ;
 ls ;;;;
 ;;;;;;;;;;
+ls
+echo a
+ls
+ls ; ls
+ls ; echo truc
+ls
+echo a
+ls ; lol
+echo a
+ls
+ls ; ls

@@ -89,27 +89,32 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 	int			i;
 	int			j;
 	char		*buf;
+	void		*lst_begin;
 
 	if (!str || !*str)
 		return (NULL);
 	cmd_count = cmd_counter(str, separator);
-	lst = ft_new_cmd_list(NULL);
-	if (!lst)
-		return (NULL);
 	j = -1;
 	i = 0;
+	lst_begin = NULL;
 	while (++j < cmd_count)
 	{
+		lst = ft_new_cmd_list(NULL);
+		if (!lst)
+			return (NULL);
+		if (lst_begin == NULL)
+			lst_begin = lst;
 		while (str[i] && is_separator(str[i], ";|"))
 			i++;
 		buf = get_cmd(&str[i]);
 		ft_split_args(buf, lst, env);
 		while (str[i] && !is_separator(str[i], ";|"))
-		{
-			lst->sep = str[i];
 			i++;
-		}
-		// free(buf);
+		lst->sep = str[i];
+		free(buf);
+		buf = NULL;
+		printf("sep == %c\n", lst->sep);
+		lst = lst->next;
 	}
-	return (lst);
+	return ((t_cmd_lst *)lst_begin);
 }
