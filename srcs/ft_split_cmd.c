@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/09 17:36:39 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/14 21:55:01 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	***ft_split_cmd2(char *str, char *separator, t_env_lst *env)
 }
 */
 
-t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
+t_cmd_lst	*ft_split_cmd(char *str, t_env_lst *env)
 {
 	t_cmd_lst	*lst;
 	int			cmd_count;
@@ -93,7 +93,7 @@ t_cmd_lst	*ft_split_cmd(char *str, char *separator, t_env_lst *env)
 
 	if (!str || !*str)
 		return (NULL);
-	cmd_count = cmd_counter(str, separator);
+	cmd_count = cmd_counter(str, SEP);
 	j = -1;
 	i = 0;
 	lst_begin = NULL;

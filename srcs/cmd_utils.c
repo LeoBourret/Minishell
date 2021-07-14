@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebourre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 03:40:31 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/25 07:09:23 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/14 21:03:42 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*get_cmd(char *s)
 	int		i;
 
 	len = 0;
-	while (s[len] && !is_separator(s[len], ";|"))
-		len++;
-	cmd = malloc(sizeof(char) * (len + 1));
 	if (cmd == NULL)
 		return (NULL);
+	while (s[len] && !is_separator(s[len], SEP))
+		len++;
+	cmd = malloc(sizeof(char) * (len + 1));
 	i = -1;
 	while (++i < len)
 		cmd[i] = s[i];

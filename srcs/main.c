@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/12 17:59:56 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/14 21:01:06 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ t_cmd_lst	*lst_cmd(char *line, t_env_lst *env)
 			write(fd, "\n", 1);
 			close(fd);
 		}
-		lst = ft_split_cmd(line, ";|", env);
+		lst = ft_split_cmd(line, env);
 		//free(line);
 	}
 	return (lst);
 }
 
-char	*get_line(int up)
+char	*get_line(int up, int db)
 {
 	char	*line;
 	struct	termios term;
@@ -179,7 +179,8 @@ buf, ft_substr(line, cur_pos, ft_strlen(line) - cur_pos));
 //		printf("line = %s len = %lu\n", line, ft_strlen(line));
 	}
 	set_term_can(term);
-	printf(YLW "line =" ZERO " %s\n", line);
+	if (db == 1)
+		printf(YLW "line =" ZERO " %s\n", line);
 	return (line);
 }
 
@@ -196,17 +197,26 @@ int		main(int ac, char **av, char **envp)
 	t_env_lst *env_list;
 	t_cmd_lst *lst;
 	int i;
+	int db;
 	pid_t	pid;
 
-	(void)ac;
-	(void)av;
+	// (void)ac;
+	// (void)av;
+	db = 0;
+	if (ac == 1)
+	{
+		(void)ac;
+		(void)av;
+	}
+	else
+		db = 1;
 	(void)envp;
 	lst = ft_new_cmd_list(NULL);
 	env_list = NULL;
 	env_list = get_env(env_list, envp);
 	while (1)
 	{
-		lst = lst_cmd(get_line(0), env_list); // ok
+		lst = lst_cmd(get_line(0, db), env_list); // ok
 		if (lst)
 		{
 			get_built_in(lst, env_list, envp);

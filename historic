@@ -1025,3 +1025,9 @@ ls ; lol
 echo a
 ls
 ls ; ls
+ls
+echo a
+ls
+ls ; ls
+ls | ls
+exit

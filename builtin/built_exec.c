@@ -90,6 +90,7 @@ void	redir(t_cmd_lst *lst)
 	int status;
 	int inout = lst->redir->redir;
 	char *inoutput = lst->redir->arg;
+	char BUF[128];
 
 	if (pid < 0)
 		perror("fork");
@@ -113,6 +114,16 @@ void	redir(t_cmd_lst *lst)
 			fd1 = open(inoutput, O_CREAT | O_RDWR | O_APPEND, 0644);
 			dup2(fd1, 1);
 			close(fd1);
+		}
+		else if (inout == 4) // <<
+		{
+			fd0 = open(inoutput, O_RDONLY);
+			dup2(fd0, 0);
+			read(fd0, BUF, ft_strlen(inoutput));
+			printf (">>> %s <<\n", BUF);
+			// while (ft_strcmp(BUF, inoutput) != 0)
+			// 	wait(NULL);
+			close(fd0);
 		}
 	}
 	else

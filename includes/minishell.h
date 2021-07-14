@@ -6,9 +6,21 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/13 21:18:51 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/14 21:41:00 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+/***
+ *      __  __ _       _     _          _ _  
+ *     |  \/  (_)     (_)   | |        | | | 
+ *     | \  / |_ _ __  _ ___| |__   ___| | | 
+ *     | |\/| | | '_ \| / __| '_ \ / _ \ | | 
+ *     | |  | | | | | | \__ \ | | |  __/ | | 
+ *     |_|  |_|_|_| |_|_|___/_| |_|\___|_|_| 
+ *                                           
+ *                                           
+ */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -25,6 +37,7 @@
 # define TRUE 1
 # define FALSE 0
 
+# define SEP ";|"
 // colors : +10 for background color
 
 # define ZERO "\033[0m"
@@ -65,7 +78,7 @@ typedef struct s_cmd_lst
 	char				sep;
 	struct s_cmd_lst	*next;
 	struct s_cmd_lst	*prev;
-	int					*fd;
+	int					fd[2];
 }				t_cmd_lst;
 
 typedef struct s_fct_params
@@ -118,7 +131,7 @@ int				how_many_redir(char *s);
 **
 */
 t_cmd_lst		*ft_new_cmd_list(t_cmd_lst *prev);
-t_cmd_lst		*ft_split_cmd(char *str, char *separator, t_env_lst *env);
+t_cmd_lst		*ft_split_cmd(char *str, t_env_lst *env);
 void			ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env);
 void			get_to_cur_pos(int from, int to);
 int				get_to_next_quote(char *s, int i);
