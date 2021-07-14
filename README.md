@@ -18,9 +18,11 @@
 
 ## ToFix :
 
-- [ ] "ls>a" a fix\n
+- ";|" fonctionne po (genre built_exec printf de sep il fait des trucs etrange + si on met un sep en premier ca fait crash) 
 
-- [ ] ";" a remettre\n
+- "ls>a" a fix\n
+
+- ";" a remettre\n
 
 ## Work :
 

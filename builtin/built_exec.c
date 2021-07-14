@@ -53,9 +53,33 @@ char	**join_args(char *s, char **args)
 	return (new);
 }
 
-fork_child(int in, int out, int fd_to_close)
-{
+// fork_child(int in, int out, int fd_to_close)
+// {
 	
+// }
+
+void	pipex(t_cmd_lst *lst)
+{
+	int fds[2];
+	int fdss[2];
+	int status;
+	pipe(fds);
+	fdss[0] = dup(0);
+	fdss[1] = dup(1);
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		close(fds[1]);
+		dup2(fds[0], STDIN_FILENO);
+		exit(0);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		exit(0);
+	}
 }
 
 void	redir(t_cmd_lst *lst)
@@ -185,8 +209,7 @@ void get_built_in(t_cmd_lst *lst, t_env_lst *envlst, char **envp)
 	pid_t	pid;
 	if (lst->redir != NULL)
 		redir(lst);
-	if (lst->sep == '|')
-		printf("Hello\n");
+	printf ("%c\n", lst->sep);// pipex(lst);
 	if (!lst)
 		return ;
 	j = -1;
