@@ -243,7 +243,6 @@ void get_built_in(t_cmd_lst **lst, t_env_lst *envlst, char **envp)
 	if ((*lst)->redir != NULL)
 		redir(*lst);
 	j = -1;
-	printf (">> %s\n", (*lst)->cmd);
 	while (lst)
 	{
 		builtin = 0;

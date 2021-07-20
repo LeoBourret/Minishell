@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/20 05:56:00 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:26:47 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ t_cmd_lst	*ft_split_cmd(char *str, t_env_lst *env)
 		lst = lst->next;
 	}
 	// if (lst_begin->next != NULL)
-		printf ("!!!! %s\n",lst_begin->next->cmd);
 	return (lst_begin);
 }
 
@@ -130,7 +129,6 @@ void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
 	int			i;
 	int			j;
 	char		*buf;
-	//lst = malloc(sizeof(t_cmd_lst));
 	lst_begin = ft_new_cmd_list();
 	if (!str || !*str)
 		return ;
@@ -139,31 +137,19 @@ void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
 	i = 0;
 	while (++j < cmd_count)
 	{
-		if ((*lst)->cmd == NULL)
-			*lst = ft_new_cmd_list();
-		//*lst = ft_new_cmd_list(NULL);
-		if (!(*lst))
-			return ;
-		while (str[i] && is_separator(str[i], ";|"))
+		if ((*lst) == NULL)
+		 	*lst = ft_new_cmd_list();
+		while (str[i] && is_separator(str[i], SEP))
 			i++;
 		buf = get_cmd(&str[i]);
 		ft_split_args(buf, lst, env);
-		while (str[i] && !is_separator(str[i], ";|"))
+		while (str[i] && !is_separator(str[i], SEP))
 			i++;
 		(*lst)->sep = str[i];
-		free(buf);
-		buf = NULL;
-		// printf ("%s\n",lst->cmd);
-		if (lst_begin == NULL)
+		if (ft_strcmp(lst_begin->cmd, "NIL") == 0)
 			lst_begin = *lst;
 		*lst = (*lst)->next;
-		// printf (">> %s\n", (*lst)->cmd);
 	}
 	*lst = lst_begin;
-	printf ("!!!! %s\n",(*lst)->cmd);
-	free(lst_begin);
-	//*lst = lst_begin;
-	// if (lst_begin->next != NULL)
-	//return (lst_begin);
 }
 

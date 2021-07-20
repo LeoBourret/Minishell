@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:24:47 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/20 05:54:34 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 15:51:25 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_cmd_lst	*ft_new_cmd_list()
 	new = malloc(sizeof(t_cmd_lst));
 	if (new == NULL)
 		return (NULL);
-	new->cmd = NULL;
+	new->cmd = "NIL";
 	new->redir = NULL;
 	new->fd[0] = 0;
 	new->fd[1] = 0;

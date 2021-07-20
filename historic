@@ -1292,3 +1292,78 @@ ls ; ls
 ls
 ;s
 ls
+lls
+ls
+ls > a
+ls
+cat a
+ls
+rm a
+ls
+echo azerty > a
+ls
+ls > a
+ls
+ls > a
+ls
+ls > l
+ls
+cat l
+ls > q
+ls
+ls > a
+ls
+ls > a
+cat a
+ls
+rm a
+rm q
+rm l
+ls
+ls > a
+cat a
+ls
+ls | ls
+ls
+ls ; ls
+ls | ls
+ls ; ls
+ls
+ls ; ls
+ls ; l
+ls
+ls ; ls
+ls
+ls ; ls
+ls ; cqt 
+ls
+ls ; fg
+ls ; ls
+ls ; l
+ls ; ls
+ls ; cqt
+l
+ls
+ls > a
+cat a
+lets go
+echo q
+echo azerty > a
+cat a
+cat ; ls
+ls
+ls > a
+cat a
+ls > a
+cat a
+rm a
+ls
+cat a
+ls
+ls ; ls
+ls
+echo a > a
+ls
+cat a
+ls
+exit

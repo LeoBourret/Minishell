@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/20 05:51:35 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:32:10 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,18 @@ void	lst_cmd2(char *line, t_env_lst *env, t_cmd_lst **lst)
 	int		fd;
 	char	*tmp;
 
+	fd = 0;
 	if (*line && line)
 	{
 		tmp = get_historic(1);
 		if ((ft_strcmp(tmp, line)) != 0)
 		{
-			fd = open("./historic", O_WRONLY|O_CREAT|O_APPEND);
+			fd = open("./historic", O_WRONLY|O_CREAT|O_APPEND, 0655);
 			write(fd, line, ft_strlen(line));
 			write(fd, "\n", 1);
 			close(fd);
 		}
 		ft_split_cmd2(lst, line, env);
-		//free(line);
 	}
 	return;
 }
@@ -222,8 +222,6 @@ int		main(int ac, char **av, char **envp)
 	int db;
 	pid_t	pid;
 
-	// (void)ac;
-	// (void)av;
 	db = 0;
 	if (ac == 1)
 	{
@@ -240,7 +238,7 @@ int		main(int ac, char **av, char **envp)
 	{
 		//lst = lst_cmd(get_line(0, db), envlst); // ok
 		lst_cmd2(get_line(0, db), envlst, &lst); // ok
-		if (lst)
+		if (ft_strcmp(lst->cmd, "NIL") != 0)
 		{
 			get_built_in(&lst, envlst, envp);
 			free(lst);

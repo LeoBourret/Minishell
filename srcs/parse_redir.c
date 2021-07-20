@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebourre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:40:12 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/02 03:02:38 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:28:26 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int	which_redir(char *str)
 	if (str[0] == '<')
 		return (1);
 	else if (str[0] == '>')
+	{
 		if (str[1] ==  '>')
 			return (3);
 		else
 			return (2);
+	}
 	else
 		return (0);
 }
@@ -73,7 +75,7 @@ t_redir	*redir_dup(char *s)
 	while (s[len] && !is_space(s[len]))
 		len++;
 	new->arg = ft_substr(s, start, len - 2);
-	printf("redir = %s.\n", new->arg);
+	// printf("redir = %s.\n", new->arg);
 	new->next = NULL;
 	return (new);
 }
@@ -131,6 +133,7 @@ char	*get_redir(char *s, t_cmd_lst *lst)
 	{
 		if (is_redir(s, i))
 		{
+
 			//printf("lst = %p redir position = %p redir content = %p\n", lst, &lst->redir, lst->redir);
 			lst->redir = redir_dup(&s[i]);
 			if (tmp == NULL)
