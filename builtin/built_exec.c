@@ -10,6 +10,15 @@ char	*builtin_list[] = {
 	"unset"
 };
 
+// print_lst(t_cmd_lst *lst)
+// {
+// 	while (lst)
+// 	{
+// 		printf("cmd = %s\n", lst->cmd);
+// 		lst = lst->next;
+// 	}
+// }
+
 int exec_built_in(t_cmd_lst *lst, t_env_lst *envlst, int fd)
 {
 	if (ft_strcmp(lst->cmd,"echo") == 0)
@@ -105,7 +114,6 @@ void	redir(t_cmd_lst *lst)
 		else if (inout == 2) // >
 		{
 			fd1 = open(inoutput, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			printf("fd = %d\n", fd1);
 			dup2(fd1, 1);
 			close(fd1);
 		}		
@@ -149,8 +157,10 @@ char **get_envchar(t_cmd_lst *lst, t_env_lst *envlst)
 	return str;
 }
 
-char *get_env_by_name(t_cmd_lst *lst, t_env_lst *envlst, char *name)
+char *get_env_by_name(t_env_lst *envlst, char *name)
 {
+	if (!envlst)
+		return 0;
 	while (envlst)
 	{
 		if (ft_strcmp(envlst->name, name) == 0)
@@ -172,17 +182,18 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 	int i = 0;
 	int err;
 
-	err = 1;
+	err = 0;
 
-	path = ft_split(get_env_by_name(lst, envlst, "PATH"), ':');
+	path = ft_split(get_env_by_name(envlst, "PATH"), ':'); //path =  bin/ usr/bin ...
 	if (!path)
 		return (1);
-	args = join_args(lst->cmd, lst->args);
+	args = join_args(lst->cmd, lst->args); // join ls + args
+	//print_point_char(args);
 	if (pid == 0)
 	{
 		if (execve(lst->cmd, args, envp) == -1)
 		{
-			err = 0;
+			err = 1;
 		}
 	}
 	while (path[i])
@@ -195,7 +206,13 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 	else if (pid == 0)
 	{
 		if (execve(cmd, args, envp) == -1)
-			err = 0;
+		{
+			err = 1;
+		}
+		else 
+		{
+			perror("pid");
+		}
 	}
 	else
 	{
@@ -203,51 +220,53 @@ int exec_ve(t_cmd_lst *lst, int builtin, t_env_lst *envlst, char **envp)
 	}
 	i++;
 	}
-	if (err == 0)
+	if (err == 1)
+	{
 		exit(0);
+	}
+	free(lst->args);
 	free(args);
 	return 1;
 }
 
-void get_built_in(t_cmd_lst *lst, t_env_lst *envlst, char **envp)
+void get_built_in(t_cmd_lst **lst, t_env_lst *envlst, char **envp)
 {
 	int fd = 1;
 	int	i;
 	int	j;
 	int	builtin;
-	int fd0 = dup(0);
-	int fd1 = dup(1);
+	(*lst)->fd[0] = dup(0);
+	(*lst)->fd[1] = dup(1);
 	pid_t	pid;
-	if (lst->redir != NULL)
-		redir(lst);
-	printf ("%c\n", lst->sep);// pipex(lst);
 	if (!lst)
 		return ;
+	if ((*lst)->redir != NULL)
+		redir(*lst);
 	j = -1;
+	printf (">> %s\n", (*lst)->cmd);
 	while (lst)
 	{
 		builtin = 0;
 		i = -1;
 		while (builtin_list[++i])
-			if (ft_strcmp(builtin_list[i], lst->cmd) == 0)
+			if (ft_strcmp(builtin_list[i], (*lst)->cmd) == 0)
 			{
 				builtin = TRUE;
 				break ;
 			}
 		if (builtin == TRUE)
 		{
-			exec_built_in(lst, envlst, 1);
+			exec_built_in(*lst, envlst, 1);
 		}
 		else
 		{
-			exec_ve(lst, builtin, envlst, envp);
+			exec_ve(*lst, builtin, envlst, envp);
 		}
-		dup2(fd0, 0);
-		close(fd0);
-		dup2(fd1, 1);
-		close(fd1);
+		dup2((*lst)->fd[0], 0);
+		close((*lst)->fd[0]);
+		dup2((*lst)->fd[1], 1);
+		close((*lst)->fd[1]);
 		break ;
-		lst = lst->next;
 	}
 	if (fd != 1)
 		close(fd);

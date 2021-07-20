@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:05:17 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/14 21:41:00 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 05:40:33 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int				is_space(char c);
 **BUILT_IN
 **
 */
-void			get_built_in (t_cmd_lst *lst, t_env_lst *envlst, char **envp);
+void			get_built_in (t_cmd_lst **lst, t_env_lst *envlst, char **envp);
 int				builtin_exit(t_cmd_lst *lst);
 int				builtin_echo(t_cmd_lst *lst, t_env_lst *env, int fd);
 int				builtin_cd(t_cmd_lst *lst, t_env_lst *envlst);
@@ -130,9 +130,9 @@ int				how_many_redir(char *s);
 **PARSER RELATED AND TOOLS
 **
 */
-t_cmd_lst		*ft_new_cmd_list(t_cmd_lst *prev);
+t_cmd_lst		*ft_new_cmd_list();
 t_cmd_lst		*ft_split_cmd(char *str, t_env_lst *env);
-void			ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env);
+void			ft_split_args(char *str, t_cmd_lst **lst, t_env_lst *env);
 void			get_to_cur_pos(int from, int to);
 int				get_to_next_quote(char *s, int i);
 int				skip_space(char *s);
@@ -167,7 +167,7 @@ int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 char			*del_char(char *src, int pos);
 void			clear_and_print(int len, char *s, int pos);
 
-
-
+void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env);
+void	lst_cmd2(char *line, t_env_lst *env, t_cmd_lst **lst);
 void print_point_char(char **str);
 #endif

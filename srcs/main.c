@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:50:02 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/14 21:01:06 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 05:51:35 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	free_cmds(t_cmd_lst *lst)
 	if (lst)
 	{
 		i = -1;
-		while (lst->cmd)
+		while (lst->next)
 		{
-			free(lst->cmd);
+			free(lst);
+			lst = lst->next;
 		}
-		free(lst->cmd);
+		free(lst);
 	}
 }
 
@@ -59,10 +60,31 @@ t_cmd_lst	*lst_cmd(char *line, t_env_lst *env)
 			write(fd, "\n", 1);
 			close(fd);
 		}
-		lst = ft_split_cmd(line, env);
+		ft_split_cmd2(&lst, line, env);
 		//free(line);
 	}
 	return (lst);
+}
+
+void	lst_cmd2(char *line, t_env_lst *env, t_cmd_lst **lst)
+{
+	int		fd;
+	char	*tmp;
+
+	if (*line && line)
+	{
+		tmp = get_historic(1);
+		if ((ft_strcmp(tmp, line)) != 0)
+		{
+			fd = open("./historic", O_WRONLY|O_CREAT|O_APPEND);
+			write(fd, line, ft_strlen(line));
+			write(fd, "\n", 1);
+			close(fd);
+		}
+		ft_split_cmd2(lst, line, env);
+		//free(line);
+	}
+	return;
 }
 
 char	*get_line(int up, int db)
@@ -194,7 +216,7 @@ void print_point_char(char **str)
 
 int		main(int ac, char **av, char **envp)
 {
-	t_env_lst *env_list;
+	t_env_lst *envlst;
 	t_cmd_lst *lst;
 	int i;
 	int db;
@@ -211,16 +233,18 @@ int		main(int ac, char **av, char **envp)
 	else
 		db = 1;
 	(void)envp;
-	lst = ft_new_cmd_list(NULL);
-	env_list = NULL;
-	env_list = get_env(env_list, envp);
+	lst = ft_new_cmd_list();
+	envlst = NULL;
+	envlst = get_env(envlst, envp);
 	while (1)
 	{
-		lst = lst_cmd(get_line(0, db), env_list); // ok
+		//lst = lst_cmd(get_line(0, db), envlst); // ok
+		lst_cmd2(get_line(0, db), envlst, &lst); // ok
 		if (lst)
 		{
-			get_built_in(lst, env_list, envp);
+			get_built_in(&lst, envlst, envp);
 			free(lst);
+			lst = ft_new_cmd_list();
 		}
 	}
 	return (0);

@@ -18,6 +18,8 @@
 
 ## ToFix :
 
+- PLUS BESOIN DE GERER "\" et ";"
+
 - ";|" fonctionne po (genre built_exec printf de sep il fait des trucs etrange + si on met un sep en premier ca fait crash) 
 
 - "ls>a" a fix\n

@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:39:11 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/14 21:55:01 by jurichar         ###   ########.fr       */
+/*   Updated: 2021/07/20 05:56:00 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,14 @@ char	***ft_split_cmd2(char *str, char *separator, t_env_lst *env)
 t_cmd_lst	*ft_split_cmd(char *str, t_env_lst *env)
 {
 	t_cmd_lst	*lst;
+	t_cmd_lst	*lst_begin;
 	int			cmd_count;
 	int			i;
 	int			j;
 	char		*buf;
-	void		*lst_begin;
 
+	lst = malloc(sizeof(t_cmd_lst));
+	lst_begin = malloc(sizeof(t_cmd_lst));
 	if (!str || !*str)
 		return (NULL);
 	cmd_count = cmd_counter(str, SEP);
@@ -102,19 +104,66 @@ t_cmd_lst	*ft_split_cmd(char *str, t_env_lst *env)
 		lst = ft_new_cmd_list(NULL);
 		if (!lst)
 			return (NULL);
+		while (str[i] && is_separator(str[i], ";|"))
+			i++;
+		buf = get_cmd(&str[i]);
+		ft_split_args(buf, &lst, env);
+		while (str[i] && !is_separator(str[i], ";|"))
+			i++;
+		lst->sep = str[i];
+		free(buf);
+		buf = NULL;
+		// printf ("%s\n",lst->cmd);
 		if (lst_begin == NULL)
 			lst_begin = lst;
+		lst = lst->next;
+	}
+	// if (lst_begin->next != NULL)
+		printf ("!!!! %s\n",lst_begin->next->cmd);
+	return (lst_begin);
+}
+
+void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
+{
+	t_cmd_lst	*lst_begin;
+	int			cmd_count;
+	int			i;
+	int			j;
+	char		*buf;
+	//lst = malloc(sizeof(t_cmd_lst));
+	lst_begin = ft_new_cmd_list();
+	if (!str || !*str)
+		return ;
+	cmd_count = cmd_counter(str, SEP);
+	j = -1;
+	i = 0;
+	while (++j < cmd_count)
+	{
+		if ((*lst)->cmd == NULL)
+			*lst = ft_new_cmd_list();
+		//*lst = ft_new_cmd_list(NULL);
+		if (!(*lst))
+			return ;
 		while (str[i] && is_separator(str[i], ";|"))
 			i++;
 		buf = get_cmd(&str[i]);
 		ft_split_args(buf, lst, env);
 		while (str[i] && !is_separator(str[i], ";|"))
 			i++;
-		lst->sep = str[i];
+		(*lst)->sep = str[i];
 		free(buf);
 		buf = NULL;
-		printf("sep == %c\n", lst->sep);
-		lst = lst->next;
+		// printf ("%s\n",lst->cmd);
+		if (lst_begin == NULL)
+			lst_begin = *lst;
+		*lst = (*lst)->next;
+		// printf (">> %s\n", (*lst)->cmd);
 	}
-	return ((t_cmd_lst *)lst_begin);
+	*lst = lst_begin;
+	printf ("!!!! %s\n",(*lst)->cmd);
+	free(lst_begin);
+	//*lst = lst_begin;
+	// if (lst_begin->next != NULL)
+	//return (lst_begin);
 }
+

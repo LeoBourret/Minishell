@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:56:25 by lebourre          #+#    #+#             */
-/*   Updated: 2021/07/02 02:51:46 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/20 04:20:01 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ char	*get_cmd_name(char *s)
 	return (cmd);
 }
 
-void	ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env)
+void	ft_split_args(char *str, t_cmd_lst **lst, t_env_lst *env)
 {
 	char	**args;
 	char	*tmp;
@@ -186,28 +186,28 @@ void	ft_split_args(char *str, t_cmd_lst *lst, t_env_lst *env)
 
 	if (how_many_redir(str) > 0)
 	{
-		tmp = get_redir(str, lst);
+		tmp = get_redir(str, *lst);
 		free(str);
 		str = tmp;
 	}
 	args_count = args_counter(str);
-	lst->args = malloc(sizeof(char *) * (args_count + 1));
+	(*lst)->args = malloc(sizeof(char *) * (args_count + 1));
 	i = 0;
 	j = 0;
 	while (is_space(str[j]) && str[j])
 		j++;
-	lst->cmd = get_cmd_name(&str[j]);
+	(*lst)->cmd = get_cmd_name(&str[j]);
 	while (++i < args_count)
 	{
 		while (str[j] && !is_space(str[j]))
 			j++;
 		while (str[j] && is_space(str[j]))
 			j++;
-		lst->args[i - 1] = ft_strdup_space_sep(&str[j], env);
+		(*lst)->args[i - 1] = ft_strdup_space_sep(&str[j], env);
 		if (str[j] == '\'' || str[j] == '"')
 			j = get_to_next_quote(str, j);
 		while (!is_space(str[j]) && str[j])
 			j++;
 	}
-	lst->args[i - 1] = NULL;
+	(*lst)->args[i - 1] = NULL;
 }

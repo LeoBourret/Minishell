@@ -6,7 +6,7 @@
 /*   By: jurichar <jurichar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:24:47 by lebourre          #+#    #+#             */
-/*   Updated: 2021/06/29 18:24:54 by lebourre         ###   ########.fr       */
+/*   Updated: 2021/07/20 05:54:34 by jurichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env_lst	*env_copy(t_env_lst *src)
 }
 */
 
-t_cmd_lst	*ft_new_cmd_list(t_cmd_lst *prev)
+t_cmd_lst	*ft_new_cmd_list()
 {
 	t_cmd_lst	*new;
 
@@ -29,7 +29,8 @@ t_cmd_lst	*ft_new_cmd_list(t_cmd_lst *prev)
 		return (NULL);
 	new->cmd = NULL;
 	new->redir = NULL;
-	new->prev = prev;
+	new->fd[0] = 0;
+	new->fd[1] = 0;
 	//new->next = NULL;
 	return (new);
 }
