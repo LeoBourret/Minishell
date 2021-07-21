@@ -19,11 +19,11 @@ char	*get_cmd(char *s)
 	int		i;
 
 	len = 0;
-	if (cmd == NULL)
-		return (NULL);
 	while (s[len] && !is_separator(s[len], SEP))
 		len++;
 	cmd = malloc(sizeof(char) * (len + 1));
+	if (cmd == NULL)
+		return (NULL);
 	i = -1;
 	while (++i < len)
 		cmd[i] = s[i];

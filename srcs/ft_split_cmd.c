@@ -129,7 +129,8 @@ void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
 	int			i;
 	int			j;
 	char		*buf;
-	lst_begin = ft_new_cmd_list();
+
+	lst_begin = *lst;
 	if (!str || !*str)
 		return ;
 	cmd_count = cmd_counter(str, SEP);
@@ -137,8 +138,6 @@ void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
 	i = 0;
 	while (++j < cmd_count)
 	{
-		if ((*lst) == NULL)
-		 	*lst = ft_new_cmd_list();
 		while (str[i] && is_separator(str[i], SEP))
 			i++;
 		buf = get_cmd(&str[i]);
@@ -148,8 +147,10 @@ void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env)
 		(*lst)->sep = str[i];
 		if (ft_strcmp(lst_begin->cmd, "NIL") == 0)
 			lst_begin = *lst;
+		printf("cmd = %s", (*lst)->cmd);
+		if (j + 1 < cmd_count)
+			(*lst)->next = ft_new_cmd_list();
 		*lst = (*lst)->next;
 	}
 	*lst = lst_begin;
 }
-

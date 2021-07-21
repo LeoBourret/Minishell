@@ -1367,3 +1367,15 @@ ls
 cat a
 ls
 exit
+ls
+ls ; echo truc
+ls ; echo coucou
+ls ; echo truc
+ls
+echo truc
+echo truc ; echo lol
+echo truc ; echo lol ; echo wesh ; echo hello ; echo houlq
+ls 
+echo truc ; echo lol ; echo wesh ; echo hello ; echo houlq
+ls
+echo truc ; echo lol ; echo wesh ; echo hello ; echo houlq

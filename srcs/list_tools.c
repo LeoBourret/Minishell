@@ -31,7 +31,7 @@ t_cmd_lst	*ft_new_cmd_list()
 	new->redir = NULL;
 	new->fd[0] = 0;
 	new->fd[1] = 0;
-	//new->next = NULL;
+	new->next = NULL;
 	return (new);
 }
 

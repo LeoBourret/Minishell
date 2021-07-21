@@ -197,10 +197,10 @@ void	ft_split_args(char *str, t_cmd_lst **lst, t_env_lst *env)
 	while (is_space(str[j]) && str[j])
 		j++;
 	(*lst)->cmd = get_cmd_name(&str[j]);
+	while (!is_space(str[j]) && str[j])
+			j++;
 	while (++i < args_count)
 	{
-		while (str[j] && !is_space(str[j]))
-			j++;
 		while (str[j] && is_space(str[j]))
 			j++;
 		(*lst)->args[i - 1] = ft_strdup_space_sep(&str[j], env);

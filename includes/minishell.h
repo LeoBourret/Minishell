@@ -167,7 +167,7 @@ int				minishell_execute(char **av, char **envp, t_env_lst *lst);
 char			*del_char(char *src, int pos);
 void			clear_and_print(int len, char *s, int pos);
 
-void	ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env);
-void	lst_cmd2(char *line, t_env_lst *env, t_cmd_lst **lst);
+void			ft_split_cmd2(t_cmd_lst **lst, char *str, t_env_lst *env);
+void			lst_cmd2(char *line, t_env_lst *env, t_cmd_lst **lst);
 void print_point_char(char **str);
 #endif

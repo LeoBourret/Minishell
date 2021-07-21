@@ -40,6 +40,7 @@ void	print_cmd(t_cmd_lst *lst)
 	while (lst)
 	{
 		printf("> commande avec ses args respectif:\n> %s\n>\n", lst->cmd);
+		lst = lst->next;
 	}
 }
 
@@ -238,6 +239,7 @@ int		main(int ac, char **av, char **envp)
 	{
 		//lst = lst_cmd(get_line(0, db), envlst); // ok
 		lst_cmd2(get_line(0, db), envlst, &lst); // ok
+		print_cmd(lst);
 		if (ft_strcmp(lst->cmd, "NIL") != 0)
 		{
 			get_built_in(&lst, envlst, envp);
