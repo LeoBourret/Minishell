@@ -3,7 +3,7 @@
 A 42 Paris project where you need to code your own mini version of bash. The program must be able to parse user input and launch executables with their optional argument.
 Some built-in function are also done:
 ..* ◦ ``echo`` with option ``-n``
-..*◦ ``cd`` with only a relative or absolute path
+..* ``cd`` with only a relative or absolute path
 ◦ ``pwd`` with no options
 ◦ ``export`` with no options
 ◦ ``unset`` with no options
