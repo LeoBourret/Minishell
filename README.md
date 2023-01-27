@@ -11,8 +11,8 @@ Some built-in function are also done:
 * ``exit`` with no options
 
 ## Final grade: 125/100
-### Mandatory part: 100/100
-### Bonus part: 25/25
+#### Mandatory part: 100/100
+#### Bonus part: 25/25
 
 ## How to use it:
 
