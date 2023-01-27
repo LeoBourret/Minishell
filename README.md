@@ -31,4 +31,5 @@ About the built-in function listed earlier, if you want to use ``cd`` for exempl
 As part of the bonuses the program had to implement:
   * ``&&`` and ``||`` with parenthesis for priorities.
   * Wildcards ``*`` should work for the ``current working directory``.
+
 Finally, you can use ``Ctrl-C`` to interrupt and ``Ctrl-\`` to quit a program, as well as ``Ctrl-D`` to throw an EOF, same as in bash.
