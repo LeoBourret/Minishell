@@ -28,6 +28,7 @@ Minishell runs executables from an absolute, relative or environment PATH (``/bi
 You can use redirection ``<`` ``<<`` ``>`` ``>>``, pipes ``|``.
 You can set, unset environment variables, like ``$HOME``, including the return code ``$?``.
 About the built-in function listed earlier, if you want to use ``cd`` for exemple, it will not call the real executable but instead our home made version.
+
 As part of the bonuses the program had to implement:
   * ``&&`` and ``||`` with parenthesis for priorities.
   * Wildcards ``*`` should work for the ``current working directory``.
