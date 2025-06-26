@@ -1,17 +1,17 @@
-🚀 Minishell: A Custom Unix Shell
+# 🚀 Minishell: A Custom Unix Shell
 
 
 
 
 
-✨ Overview
+## ✨ Overview
 
 Minishell is a challenging core project from 42 Paris, where the goal is to replicate key functionalities of the Bash shell in C. This project provided an in-depth exploration of Unix system programming, command parsing, and process management, pushing the boundaries of what a custom shell can achieve.
 It was designed to deepen understanding of how operating systems interact with user commands, from interpreting input to executing external programs and managing environmental variables.
 
-🌟 Key Features & Learnings
+## 🌟 Key Features & Learnings
 
-Core Functionalities (Mandatory Part)
+### Core Functionalities (Mandatory Part)
 
 - Robust Input Parsing: Implemented a sophisticated command-line parser capable of handling single and double quotes, multiple commands, and various arguments.
 - Command Execution: Ability to launch external executables from absolute, relative, or environment PATH (e.g., /bin/ls or ls).
@@ -27,41 +27,41 @@ Core Functionalities (Mandatory Part)
 	- env
 	- exit
 
-Advanced Features (Bonus Part)
+### Advanced Features (Bonus Part)
 
 - Logical Operators: Implementation of && (AND) and || (OR) operators with parenthesis support for command grouping and priority.
 - Wildcard Expansion: Support for * wildcard expansion in the current working directory, similar to Bash's globbing.
 - Signal Handling: Proper handling of Unix signals (Ctrl-C for SIGINT, Ctrl-\ for SIGQUIT, Ctrl-D for EOF).
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 - Language: C
 - Build System: Makefile
 - Libraries: Standard C Library, system calls (e.g., fork, execve, waitpid, pipe, dup2).
 
-🚀 How to Use
+## 🚀 How to Use
 
 1. Clone the repository:
 
-	git clone https://github.com/yourusername/minishell.git
-	cd minishell
+	`git clone https://github.com/yourusername/minishell.git`
+	`cd minishell`
 
 
 
 2. Build the executable:
 
-	make
+	`make`
 
 
 
 3. Run Minishell:
 
-	./minishell
+	`./minishell`
 
 
 You will see a prompt, and can start typing commands!
 
-🎓 Learning Outcomes
+##🎓 Learning Outcomes
 
 This project was pivotal in deepening my understanding of:
 
