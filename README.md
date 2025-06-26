@@ -61,7 +61,7 @@ It was designed to deepen understanding of how operating systems interact with u
 
 You will see a prompt, and can start typing commands!
 
-##🎓 Learning Outcomes
+## 🎓 Learning Outcomes
 
 This project was pivotal in deepening my understanding of:
 
