@@ -1,36 +1,72 @@
-# Minishell
+🚀 Minishell: A Custom Unix Shell
 
-A 42 Paris project where you need to code your own mini version of bash in ``C``. The program must be able to parse user input and launch executables with their optional argument.
-Some built-in function are also done:
-* ``echo`` with option ``-n``
-* ``cd`` with only a relative or absolute path
-* ``pwd`` with no options
-* ``export`` with no options
-* ``unset`` with no options
-* ``env`` with no options or arguments
-* ``exit`` with no options
 
-## Final grade: 125/100
-#### Mandatory part: 100/100
-#### Bonus part: 25/25
 
-## How to use it:
 
-Running ``Make`` command will generate the ``minishell`` exectuable.
-You can then run it.
-```
-./minishell
-```
 
-## What to expect
+✨ Overview
 
-Minishell runs executables from an absolute, relative or environment PATH (``/bin/ls`` or ``ls``), including arguments or options. ``'`` and ``"`` work the same as bash, except for multiline commands.
-You can use redirection ``<`` ``<<`` ``>`` ``>>``, pipes ``|``.
-You can set, unset environment variables, like ``$HOME``, including the return code ``$?``.
-About the built-in function listed earlier, if you want to use ``cd`` for exemple, it will not call the real executable but instead our home made version.
+Minishell is a challenging core project from 42 Paris, where the goal is to replicate key functionalities of the Bash shell in C. This project provided an in-depth exploration of Unix system programming, command parsing, and process management, pushing the boundaries of what a custom shell can achieve.
+It was designed to deepen understanding of how operating systems interact with user commands, from interpreting input to executing external programs and managing environmental variables.
 
-As part of the bonuses the program had to implement:
-  * ``&&`` and ``||`` with parenthesis for priorities.
-  * Wildcards ``*`` should work for the ``current working directory``.
+🌟 Key Features & Learnings
 
-Finally, you can use ``Ctrl-C`` to interrupt and ``Ctrl-\`` to quit a program, as well as ``Ctrl-D`` to throw an EOF, same as in bash.
+Core Functionalities (Mandatory Part)
+
+- Robust Input Parsing: Implemented a sophisticated command-line parser capable of handling single and double quotes, multiple commands, and various arguments.
+- Command Execution: Ability to launch external executables from absolute, relative, or environment PATH (e.g., /bin/ls or ls).
+- I/O Redirections: Support for standard input/output redirection (<, <<, >, >>).
+- Pipes (|): Implemented inter-process communication using pipes, allowing the output of one command to serve as the input for another.
+- Environment Variables: Management of environment variables (setting, unsetting, expansion like $HOME, and handling $? for return codes).
+- Built-in Commands: Developed custom versions of essential shell built-ins:
+	- echo [-n]
+	- cd [path] (relative/absolute)
+	- pwd
+	- export
+	- unset
+	- env
+	- exit
+
+Advanced Features (Bonus Part)
+
+- Logical Operators: Implementation of && (AND) and || (OR) operators with parenthesis support for command grouping and priority.
+- Wildcard Expansion: Support for * wildcard expansion in the current working directory, similar to Bash's globbing.
+- Signal Handling: Proper handling of Unix signals (Ctrl-C for SIGINT, Ctrl-\ for SIGQUIT, Ctrl-D for EOF).
+
+🛠️ Technologies Used
+
+- Language: C
+- Build System: Makefile
+- Libraries: Standard C Library, system calls (e.g., fork, execve, waitpid, pipe, dup2).
+
+🚀 How to Use
+
+1. Clone the repository:
+
+	git clone https://github.com/yourusername/minishell.git
+	cd minishell
+
+
+
+2. Build the executable:
+
+	make
+
+
+
+3. Run Minishell:
+
+	./minishell
+
+
+You will see a prompt, and can start typing commands!
+
+🎓 Learning Outcomes
+
+This project was pivotal in deepening my understanding of:
+
+- Unix System Programming: Mastery of fork(), execve(), waitpid(), pipe(), dup2(), and other crucial system calls.
+- Process Management: How processes are created, managed, and interact within a Unix-like environment.
+- Lexing & Parsing: Design and implementation of a robust parsing engine for complex command lines.
+- Memory Management: Careful allocation and deallocation of memory in C.
+- Error Handling: Robust error management for system calls and invalid user inputs.
